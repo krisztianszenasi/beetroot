@@ -1,6 +1,8 @@
 package com.krisztianszenasi.beetroot.ast.nodes.common;
 
 
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+
 import java.util.Objects;
 
 public class ListTypeNode extends CollectionTypeNode {
@@ -21,5 +23,10 @@ public class ListTypeNode extends CollectionTypeNode {
     @Override
     public int hashCode() {
         return Objects.hash(elementType);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitListTypeNode(this);
     }
 }

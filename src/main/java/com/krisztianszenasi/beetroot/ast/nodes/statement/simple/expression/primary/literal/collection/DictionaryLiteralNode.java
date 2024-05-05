@@ -1,6 +1,8 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal.collection;
 
 
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,5 +25,10 @@ public class DictionaryLiteralNode extends CollectionLiteralNode {
     @Override
     public int hashCode() {
         return Objects.hash(elements);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitDictionaryLiteralNode(this);
     }
 }

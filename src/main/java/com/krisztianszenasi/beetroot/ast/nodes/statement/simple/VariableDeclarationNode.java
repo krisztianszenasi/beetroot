@@ -2,6 +2,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple;
 
 import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.enums.Mutability;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
@@ -53,5 +54,10 @@ public class VariableDeclarationNode extends SimpleStatementNode{
     @Override
     public int hashCode() {
         return Objects.hash(mutability, variableName, declarationType, initialAssignment);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitVariableDeclarationNode(this);
     }
 }

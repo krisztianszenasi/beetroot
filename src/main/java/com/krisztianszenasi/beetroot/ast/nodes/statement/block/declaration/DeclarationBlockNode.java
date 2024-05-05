@@ -2,6 +2,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration;
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.StatementNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 

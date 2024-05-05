@@ -1,6 +1,7 @@
 package com.krisztianszenasi.beetroot.ast.nodes;
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
@@ -26,5 +27,10 @@ public class FileNode extends Node  {
     @Override
     public int hashCode() {
         return Objects.hash(block);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitFileNode(this);
     }
 }

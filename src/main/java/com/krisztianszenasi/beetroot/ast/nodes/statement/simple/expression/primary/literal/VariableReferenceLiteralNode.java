@@ -1,5 +1,7 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal;
 
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+
 import java.util.Objects;
 
 public class VariableReferenceLiteralNode extends LiteralExpressionNode {
@@ -24,5 +26,10 @@ public class VariableReferenceLiteralNode extends LiteralExpressionNode {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitVariableReferenceLiteralNode(this);
     }
 }

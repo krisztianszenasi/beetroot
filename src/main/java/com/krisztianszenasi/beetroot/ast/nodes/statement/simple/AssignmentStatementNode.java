@@ -2,6 +2,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple;
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.PrimaryExpressionNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
@@ -25,5 +26,10 @@ public class AssignmentStatementNode extends SimpleStatementNode{
     @Override
     public int hashCode() {
         return Objects.hash(primary, expression);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitAssignmentStatementNode(this);
     }
 }

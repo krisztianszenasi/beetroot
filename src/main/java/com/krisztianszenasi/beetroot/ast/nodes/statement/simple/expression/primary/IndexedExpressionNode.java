@@ -2,6 +2,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prim
 
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
@@ -25,5 +26,10 @@ public class IndexedExpressionNode extends PrimaryExpressionNode{
     @Override
     public int hashCode() {
         return Objects.hash(indexed, indexPosition);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitIndexedExpressionNode(this);
     }
 }

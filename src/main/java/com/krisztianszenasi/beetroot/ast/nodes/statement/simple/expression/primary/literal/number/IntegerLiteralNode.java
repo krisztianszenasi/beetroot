@@ -1,5 +1,7 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal.number;
 
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+
 import java.util.Objects;
 
 public class IntegerLiteralNode extends NumberLiteralNode{
@@ -24,5 +26,10 @@ public class IntegerLiteralNode extends NumberLiteralNode{
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitIntegerLiteralNode(this);
     }
 }

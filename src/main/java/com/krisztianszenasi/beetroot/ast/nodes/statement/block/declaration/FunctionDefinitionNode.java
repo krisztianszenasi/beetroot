@@ -2,6 +2,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration;
 
 import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
@@ -59,5 +60,10 @@ public class FunctionDefinitionNode extends DeclarationBlockNode {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), name, returnType, parameters);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitFunctionDefinitionNode(this);
     }
 }

@@ -3,6 +3,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.block;
 
 import com.krisztianszenasi.beetroot.ast.nodes.common.StatementsHolder;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.StatementNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +33,10 @@ public class BlockNode extends StatementNode implements StatementsHolder {
     @Override
     public int hashCode() {
         return Objects.hash(statements);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitBlockNode(this);
     }
 }

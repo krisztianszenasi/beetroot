@@ -1,6 +1,8 @@
 package com.krisztianszenasi.beetroot.ast.nodes.common;
 
 
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+
 import java.util.Objects;
 
 public class DictTypeNode extends CollectionTypeNode{
@@ -24,5 +26,10 @@ public class DictTypeNode extends CollectionTypeNode{
     @Override
     public int hashCode() {
         return Objects.hash(keyType, valueType);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitDictTypeNode(this);
     }
 }

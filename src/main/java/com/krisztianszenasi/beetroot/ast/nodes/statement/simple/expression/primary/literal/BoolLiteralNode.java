@@ -1,5 +1,7 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal;
 
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+
 import java.util.Objects;
 
 public class BoolLiteralNode extends LiteralExpressionNode {
@@ -28,5 +30,10 @@ public class BoolLiteralNode extends LiteralExpressionNode {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitBoolLiteralNode(this);
     }
 }

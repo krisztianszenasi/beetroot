@@ -2,6 +2,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.common;
 
 
 import com.krisztianszenasi.beetroot.ast.nodes.common.enums.PrimitiveType;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
@@ -23,5 +24,10 @@ public class PrimitiveTypeNode extends TypeNode{
     @Override
     public int hashCode() {
         return Objects.hash(primitiveType);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitPrimitiveTypeNode(this);
     }
 }

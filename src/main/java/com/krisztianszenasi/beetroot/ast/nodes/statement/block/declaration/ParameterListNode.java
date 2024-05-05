@@ -1,6 +1,7 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration;
 
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +29,10 @@ public class ParameterListNode extends Node {
     @Override
     public int hashCode() {
         return Objects.hash(parameters);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitParameterListNode(this);
     }
 }

@@ -1,6 +1,7 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary;
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +39,10 @@ public class FunctionCallExpressionNode extends PrimaryExpressionNode{
     @Override
     public int hashCode() {
         return Objects.hash(functionName, arguments);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        return visitor.visitFunctionCallExpressionNode(this);
     }
 }
