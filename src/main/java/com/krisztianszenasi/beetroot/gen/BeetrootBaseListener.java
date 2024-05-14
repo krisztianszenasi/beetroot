@@ -365,13 +365,25 @@ public class BeetrootBaseListener implements BeetrootListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDictElementType(BeetrootParser.DictElementTypeContext ctx) { }
+	@Override public void enterListType(BeetrootParser.ListTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDictElementType(BeetrootParser.DictElementTypeContext ctx) { }
+	@Override public void exitListType(BeetrootParser.ListTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDictType(BeetrootParser.DictTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDictType(BeetrootParser.DictTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

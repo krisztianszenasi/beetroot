@@ -107,15 +107,21 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitFunctionDefinition(BeetrootParser.FunctionDefinitionContext ctx) {
-        TypeNode returnType = ctx.functionReturnType() == null ? null : visitType(ctx.functionReturnType().type());
         ParameterListNode parameters = visitFunctionParameters(ctx.functionParameters());
 
         return new FunctionDefinitionNode(
                 retrieveFunctionName(ctx.functionName()),
-                returnType,
+                visitFunctionReturnType(ctx.functionReturnType()),
                 parameters,
                 visitBlock(ctx.block())
         );
+    }
+
+    @Override
+    public TypeNode visitFunctionReturnType(BeetrootParser.FunctionReturnTypeContext ctx) {
+        if(ctx == null)
+            return null;
+        return visitType(ctx.type());
     }
 
     @Override
@@ -291,16 +297,22 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public PrimitiveTypeNode visitPrimitiveType(BeetrootParser.PrimitiveTypeContext ctx) {
-        return buildPrimitiveNodeFrom(ctx);
+        return new PrimitiveTypeNode(ctx.children.get(0).toString());
     }
 
     @Override
-    public CollectionTypeNode visitCollectionType(BeetrootParser.CollectionTypeContext ctx) {
-        if(ctx.LIST_T() != null) {
-            return buildListTypeNodeFrom(ctx);
-        } else {
-            return buildDictTypeNodeFrom(ctx);
-        }
+    public Node visitDictType(BeetrootParser.DictTypeContext ctx) {
+        return new DictTypeNode(
+                (TypeNode) visit(ctx.keyType().type()),
+                (TypeNode) visit(ctx.valueType().type())
+        );
+    }
+
+    @Override
+    public Node visitListType(BeetrootParser.ListTypeContext ctx) {
+        return new ListTypeNode(
+                (TypeNode) visit(ctx.valueType().type())
+        );
     }
 
     @Override
@@ -331,42 +343,8 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
     }
 
     // =================
-    // Helpers TODO: probably best to move these to separate helper class or classes
+    // Helpers
     // =================
-
-    private PrimitiveTypeNode buildPrimitiveNodeFrom(BeetrootParser.PrimitiveTypeContext ctx) {
-        PrimitiveType selectedType = PrimitiveType.ANY;
-
-        if(ctx.INT_T() != null) {
-            selectedType = PrimitiveType.INT;
-        }
-        else if(ctx.DEC_T() != null) {
-            selectedType = PrimitiveType.DEC;
-        }
-        else if(ctx.STR_T() != null) {
-            selectedType = PrimitiveType.STR;
-        }
-        else if(ctx.BOOL_T() != null) {
-            selectedType = PrimitiveType.BOOL;
-        }
-        else if(ctx.NONE_LIT() != null) {
-            selectedType = PrimitiveType.NONE;
-        }
-
-        return new PrimitiveTypeNode(selectedType);
-    }
-
-    private ListTypeNode buildListTypeNodeFrom(BeetrootParser.CollectionTypeContext ctx) {
-        TypeNode elementType = (TypeNode) visit(ctx.valueType());
-        return new ListTypeNode(elementType);
-    }
-
-    private DictTypeNode buildDictTypeNodeFrom(BeetrootParser.CollectionTypeContext ctx) {
-        TypeNode keyType = (TypeNode) visit(ctx.dictElementType().keyType());
-        TypeNode valueType = (TypeNode) visit(ctx.dictElementType().valueType());
-        return new DictTypeNode(keyType, valueType);
-    }
-
 
     private Mutability retrieveMutability(BeetrootParser.MutabilityContext ctx) {
         if(ctx.VAL() != null) {

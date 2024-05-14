@@ -191,11 +191,17 @@ public interface BeetrootVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrimitiveType(BeetrootParser.PrimitiveTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BeetrootParser#dictElementType}.
+	 * Visit a parse tree produced by {@link BeetrootParser#listType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDictElementType(BeetrootParser.DictElementTypeContext ctx);
+	T visitListType(BeetrootParser.ListTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BeetrootParser#dictType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDictType(BeetrootParser.DictTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BeetrootParser#keyType}.
 	 * @param ctx the parse tree

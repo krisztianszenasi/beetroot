@@ -82,8 +82,8 @@ rangeType
     : RANGE_T LBRACKET valueType RBRACKET
     ;
 collectionType
-    :   LIST_T LBRACKET valueType RBRACKET
-    |   DICT_T LBRACKET dictElementType RBRACKET
+    :   listType
+    |   dictType
     ;
 primitiveType
     :   INT_T
@@ -95,7 +95,8 @@ primitiveType
     ;
 
 // CollectionType helpers
-dictElementType: keyType COMMA valueType;
+listType: LIST_T LBRACKET valueType RBRACKET;
+dictType: DICT_T LBRACKET keyType COMMA valueType RBRACKET;
 keyType: type;
 valueType: type;
 

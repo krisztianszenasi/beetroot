@@ -310,15 +310,25 @@ public interface BeetrootListener extends ParseTreeListener {
 	 */
 	void exitPrimitiveType(BeetrootParser.PrimitiveTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BeetrootParser#dictElementType}.
+	 * Enter a parse tree produced by {@link BeetrootParser#listType}.
 	 * @param ctx the parse tree
 	 */
-	void enterDictElementType(BeetrootParser.DictElementTypeContext ctx);
+	void enterListType(BeetrootParser.ListTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BeetrootParser#dictElementType}.
+	 * Exit a parse tree produced by {@link BeetrootParser#listType}.
 	 * @param ctx the parse tree
 	 */
-	void exitDictElementType(BeetrootParser.DictElementTypeContext ctx);
+	void exitListType(BeetrootParser.ListTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BeetrootParser#dictType}.
+	 * @param ctx the parse tree
+	 */
+	void enterDictType(BeetrootParser.DictTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BeetrootParser#dictType}.
+	 * @param ctx the parse tree
+	 */
+	void exitDictType(BeetrootParser.DictTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BeetrootParser#keyType}.
 	 * @param ctx the parse tree

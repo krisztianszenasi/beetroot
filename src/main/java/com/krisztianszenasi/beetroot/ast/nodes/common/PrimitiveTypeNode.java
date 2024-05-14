@@ -1,16 +1,15 @@
 package com.krisztianszenasi.beetroot.ast.nodes.common;
 
 
-import com.krisztianszenasi.beetroot.ast.nodes.common.enums.PrimitiveType;
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
 public class PrimitiveTypeNode extends TypeNode{
-    PrimitiveType primitiveType;
+    String type;
 
-    public PrimitiveTypeNode(PrimitiveType primitiveType){
-        this.primitiveType = primitiveType;
+    public PrimitiveTypeNode(String type){
+        this.type = type;
     }
 
     @Override
@@ -18,12 +17,12 @@ public class PrimitiveTypeNode extends TypeNode{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrimitiveTypeNode that = (PrimitiveTypeNode) o;
-        return primitiveType == that.primitiveType;
+        return Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(primitiveType);
+        return Objects.hash(type);
     }
 
     @Override
