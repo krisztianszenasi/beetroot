@@ -6,8 +6,10 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prima
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.primary_node.helpers.DummyPrimary;
 
 public class AssignmentNeverEquals extends DummyAssignment {
-    public AssignmentNeverEquals(PrimaryExpressionNode primary, ExpressionNode expression) {
-        super(primary, expression);
+
+
+    public AssignmentNeverEquals(PrimaryExpressionNode primary, String operator, ExpressionNode expression) {
+        super(primary, operator, expression);
     }
 
     @Override
@@ -16,6 +18,6 @@ public class AssignmentNeverEquals extends DummyAssignment {
     }
 
     public static AssignmentNeverEquals getInstance() {
-        return new AssignmentNeverEquals(new DummyPrimary(), new DummyExpression());
+        return new AssignmentNeverEquals(new DummyPrimary(), "=", new DummyExpression());
     }
 }

@@ -9,9 +9,11 @@ import java.util.Objects;
 public class AssignmentStatementNode extends SimpleStatementNode{
     PrimaryExpressionNode primary;
     ExpressionNode expression;
+    String operator;
 
-    public AssignmentStatementNode(PrimaryExpressionNode primary, ExpressionNode expression) {
+    public AssignmentStatementNode(PrimaryExpressionNode primary, String operator, ExpressionNode expression) {
         this.primary = primary;
+        this.operator = operator;
         this.expression = expression;
     }
 
@@ -20,12 +22,12 @@ public class AssignmentStatementNode extends SimpleStatementNode{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AssignmentStatementNode that = (AssignmentStatementNode) o;
-        return Objects.equals(primary, that.primary) && Objects.equals(expression, that.expression);
+        return Objects.equals(primary, that.primary) && Objects.equals(expression, that.expression) && Objects.equals(operator, that.operator);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(primary, expression);
+        return Objects.hash(primary, expression, operator);
     }
 
     @Override

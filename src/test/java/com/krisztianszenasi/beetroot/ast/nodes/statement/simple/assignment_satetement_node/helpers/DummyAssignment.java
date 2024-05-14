@@ -7,11 +7,13 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prima
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.primary_node.helpers.DummyPrimary;
 
 public class DummyAssignment extends AssignmentStatementNode {
-    public DummyAssignment(PrimaryExpressionNode primary, ExpressionNode expression) {
-        super(primary, expression);
+
+
+    public DummyAssignment(PrimaryExpressionNode primary, String operator, ExpressionNode expression) {
+        super(primary, operator, expression);
     }
 
     public static DummyAssignment getInstance() {
-        return new DummyAssignment(new DummyPrimary(), new DummyExpression());
+        return new DummyAssignment(new DummyPrimary(), "=", new DummyExpression());
     }
 }

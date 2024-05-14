@@ -1,3 +1,1 @@
-fun foo(bar: int, baz: bool) -> int:
-     return 3
- end
+var x = 1 * 3

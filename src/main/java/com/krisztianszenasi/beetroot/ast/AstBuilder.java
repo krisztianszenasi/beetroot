@@ -18,16 +18,7 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.AssignmentStatem
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.ReturnStatement;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.VariableDeclarationNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.BinaryExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.RangeExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.add_sub.AdditionExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.add_sub.SubtractionExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.compare.*;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.logical.AndExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.logical.OrExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.mul_div_rem.DivideExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.mul_div_rem.MultiplyExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.mul_div_rem.ReminderExpression;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.BinaryExpression;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.FunctionCallExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.PrimaryExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.UnaryExpressionNode;
@@ -108,7 +99,8 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
                 new VariableDeclarationNode(
                         Mutability.MUTABLE,
                         retrieveVariableName(ctx.forHeader().variableName()),
-                        visitType(ctx.forHeader().type())
+                        visitType(ctx.forHeader().type()),
+                        null
                 )
         );
     }
@@ -150,17 +142,12 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public VariableDeclarationNode visitVariableDeclaration(BeetrootParser.VariableDeclarationContext ctx) {
-        var declaration = new VariableDeclarationNode(
-            retrieveMutability(ctx.mutability()),
-            retrieveVariableName(ctx.variableName()),
-            visitDeclarationType(ctx.declarationType())
+        return new VariableDeclarationNode(
+                retrieveMutability(ctx.mutability()),
+                retrieveVariableName(ctx.variableName()),
+                visitDeclarationType(ctx.declarationType()),
+                ctx.expression() == null ? null : (ExpressionNode) visit(ctx.expression())
         );
-        handleAssignment(
-            declaration,
-            (ExpressionNode) visit(ctx.expression()),
-            ctx.assignment()
-        );
-        return declaration;
     }
 
     @Override
@@ -168,12 +155,9 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
         PrimaryExpressionNode primary = (PrimaryExpressionNode) visit(ctx.primary());
 
         return new AssignmentStatementNode(
-            primary,
-            buildExpressionWith(
                 primary,
-                (ExpressionNode) visit(ctx.expression()),
-                ctx.assignment()
-            )
+                ctx.assignment().children.get(0).toString(),
+                ctx.expression() == null ? null : (ExpressionNode) visit(ctx.expression())
         );
     }
 
@@ -262,86 +246,47 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitMulDivExpression(BeetrootParser.MulDivExpressionContext ctx) {
-        BinaryExpression expression;
-
-        if(ctx.mulDivOp().DIV() != null) {
-            expression = new DivideExpression();
-        } else if(ctx.mulDivOp().MUL() != null) {
-            expression = new MultiplyExpression();
-        } else {
-            expression = new ReminderExpression();
-        }
-
-        expression.setLeft((ExpressionNode) visit(ctx.expression(0)));
-        expression.setRight((ExpressionNode) visit(ctx.expression(1)));
-
-        return expression;
+        return new BinaryExpression(
+                ctx.mulDivOp().children.get(0).toString(),
+                (ExpressionNode) visit(ctx.expression(0)),
+                (ExpressionNode) visit(ctx.expression(1))
+        );
     }
 
     @Override
     public Node visitAddSubExpression(BeetrootParser.AddSubExpressionContext ctx) {
-        BinaryExpression expression;
-
-        if(ctx.addSubOp().PLUS() != null) {
-            expression = new AdditionExpression();
-        } else {
-            expression = new SubtractionExpression();
-        }
-
-        expression.setLeft((ExpressionNode) visit(ctx.expression(0)));
-        expression.setRight((ExpressionNode) visit(ctx.expression(1)));
-
-        return expression;
+        return new BinaryExpression(
+                ctx.addSubOp().children.get(0).toString(),
+                (ExpressionNode) visit(ctx.expression(0)),
+                (ExpressionNode) visit(ctx.expression(1))
+        );
     }
 
     @Override
     public Node visitCompairExpression(BeetrootParser.CompairExpressionContext ctx) {
-        BinaryExpression expression;
-
-        if(ctx.compairOp().EQ() != null) {
-            expression = new EqualExpression();
-        } else if(ctx.compairOp().NEQ() != null) {
-            expression = new NotEqualExpression();
-        } else if(ctx.compairOp().GT() != null) {
-            expression = new GreaterThanExpression();
-        } else if(ctx.compairOp().GTE() != null) {
-            expression = new GreaterThanEqualExpression();
-        } else if(ctx.compairOp().LT() != null) {
-            expression = new LessThanExpression();
-        }  else if(ctx.compairOp().LTE() != null) {
-            expression = new LessThanEqualExpression();
-        } else {
-            expression = new ContainsExpression();
-        }
-
-        expression.setLeft((ExpressionNode) visit(ctx.expression(0)));
-        expression.setRight((ExpressionNode) visit(ctx.expression(1)));
-
-        return expression;
+        return new BinaryExpression(
+                ctx.compairOp().children.get(0).toString(),
+                (ExpressionNode) visit(ctx.expression(0)),
+                (ExpressionNode) visit(ctx.expression(1))
+        );
     }
 
     @Override
     public Node visitLogicalExpression(BeetrootParser.LogicalExpressionContext ctx) {
-        BinaryExpression expression;
-
-        if(ctx.logicalOp().AND() != null) {
-            expression = new AndExpression();
-        } else {
-            expression = new OrExpression();
-        }
-
-        expression.setLeft((ExpressionNode) visit(ctx.expression(0)));
-        expression.setRight((ExpressionNode) visit(ctx.expression(1)));
-
-        return expression;
+        return new BinaryExpression(
+                ctx.logicalOp().children.get(0).toString(),
+                (ExpressionNode) visit(ctx.expression(0)),
+                (ExpressionNode) visit(ctx.expression(1))
+        );
     }
 
     @Override
     public Node visitRangeExpression(BeetrootParser.RangeExpressionContext ctx) {
-        RangeExpression expression = new RangeExpression();
-        expression.setLeft((ExpressionNode) visit(ctx.expression(0)));
-        expression.setRight((ExpressionNode) visit(ctx.expression(1)));
-        return expression;
+        return new BinaryExpression(
+                "range",
+                (ExpressionNode) visit(ctx.expression(0)),
+                (ExpressionNode) visit(ctx.expression(1))
+        );
     }
 
     @Override
@@ -437,68 +382,5 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     private String retrieveFunctionName(BeetrootParser.FunctionNameContext ctx) {
         return ctx.ID().toString();
-    }
-
-    private void handleAssignment(
-        VariableDeclarationNode declaration,
-        ExpressionNode expressionNode,
-        BeetrootParser.AssignmentContext assignmentCtx
-    ) {
-        declaration.setInitialAssignment(
-            buildAssignmentWith(
-                new VariableReferenceLiteralNode(declaration.getVariableName()),
-                expressionNode,
-                assignmentCtx
-            )
-        );
-    }
-
-    private AssignmentStatementNode buildAssignmentWith(
-        PrimaryExpressionNode primary,
-        ExpressionNode expression,
-        BeetrootParser.AssignmentContext assignmentContext
-    ) {
-        ExpressionNode updatedExpr = buildExpressionWith(primary, expression, assignmentContext);
-        if(updatedExpr != null) {
-            return new AssignmentStatementNode(primary, updatedExpr);
-        }
-        return null;
-    }
-
-    private ExpressionNode buildExpressionWith(
-        PrimaryExpressionNode primary,
-        ExpressionNode expression,
-        BeetrootParser.AssignmentContext assignmentContext
-    ) {
-        BinaryExpression updatedExpr = handleComplexAssignment(primary, expression, assignmentContext);
-        if(updatedExpr == null) {
-            return expression;
-        }
-        return updatedExpr;
-    }
-
-    private BinaryExpression handleComplexAssignment(
-        PrimaryExpressionNode primary,
-        ExpressionNode expression,
-        BeetrootParser.AssignmentContext assignmentContext
-    ) {
-        BinaryExpression updatedExpression;
-
-        if(assignmentContext.DIV() != null) {
-            updatedExpression = new DivideExpression();
-        } else if(assignmentContext.MUL() != null) {
-            updatedExpression = new MultiplyExpression();
-        } else if(assignmentContext.PLUS() != null) {
-            updatedExpression = new AdditionExpression();
-        } else if(assignmentContext.MINUS() != null) {
-            updatedExpression = new SubtractionExpression();
-        } else {
-            return null;
-        }
-
-        updatedExpression.setRight(expression);
-        updatedExpression.setLeft(primary);
-
-        return updatedExpression;
     }
 }

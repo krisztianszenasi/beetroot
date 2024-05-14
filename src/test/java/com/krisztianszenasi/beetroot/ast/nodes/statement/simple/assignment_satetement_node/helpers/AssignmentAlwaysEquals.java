@@ -7,8 +7,10 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prima
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.primary_node.helpers.DummyPrimary;
 
 public class AssignmentAlwaysEquals extends AssignmentStatementNode {
-    public AssignmentAlwaysEquals(PrimaryExpressionNode primary, ExpressionNode expression) {
-        super(primary, expression);
+
+
+    public AssignmentAlwaysEquals(PrimaryExpressionNode primary, String operator, ExpressionNode expression) {
+        super(primary, operator, expression);
     }
 
     @Override
@@ -17,6 +19,6 @@ public class AssignmentAlwaysEquals extends AssignmentStatementNode {
     }
 
     public static AssignmentAlwaysEquals getInstance() {
-        return new AssignmentAlwaysEquals(new DummyPrimary(), new DummyExpression());
+        return new AssignmentAlwaysEquals(new DummyPrimary(), "=", new DummyExpression());
     }
 }

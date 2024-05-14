@@ -27,6 +27,7 @@ class AssignmentStatementNodeEqualsTest {
     static void init() {
         dummyAssignment = new AssignmentStatementNode(
                 mock(PrimaryExpressionNode.class, Answers.CALLS_REAL_METHODS),
+                "=",
                 mock(ExpressionNode.class, Answers.CALLS_REAL_METHODS)
         );
     }
@@ -35,6 +36,7 @@ class AssignmentStatementNodeEqualsTest {
     void testEquals_WhenPrimaryAndExpressionSame_ReturnsTrue() {
         AssignmentStatementNode alwaysAlways = new AssignmentStatementNode(
                 new PrimaryAlwaysEquals(),
+                "=",
                 new ExpressionAlwaysEquals()
         );
 
@@ -45,6 +47,7 @@ class AssignmentStatementNodeEqualsTest {
     void testEquals_WhenExpressionDiffers_ReturnsFalse() {
         AssignmentStatementNode alwaysNever = new AssignmentStatementNode(
                 new PrimaryAlwaysEquals(),
+                "=",
                 new ExpressionNeverEquals()
         );
 
@@ -55,6 +58,7 @@ class AssignmentStatementNodeEqualsTest {
     void testEquals_WhenPrimaryDiffers_ReturnsFalse() {
         AssignmentStatementNode neverAlways = new AssignmentStatementNode(
                 new PrimaryNeverEquals(),
+                "=",
                 new ExpressionAlwaysEquals()
         );
 
@@ -65,6 +69,7 @@ class AssignmentStatementNodeEqualsTest {
     void testEquals_WhenPrimaryAndExpressionDiffer_ReturnsFalse() {
         AssignmentStatementNode neverNever = new AssignmentStatementNode(
                 new PrimaryNeverEquals(),
+                "=",
                 new ExpressionNeverEquals()
         );
 
@@ -75,6 +80,7 @@ class AssignmentStatementNodeEqualsTest {
     void testEquals_WhenDifferentNode_ReturnsFalse() {
         AssignmentStatementNode alwaysAlways = new AssignmentStatementNode(
                 new PrimaryAlwaysEquals(),
+                "=",
                 new ExpressionAlwaysEquals()
         );
         Node differentNode = new DummyNode();

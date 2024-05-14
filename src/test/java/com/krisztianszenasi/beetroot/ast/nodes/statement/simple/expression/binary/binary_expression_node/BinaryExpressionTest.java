@@ -2,9 +2,8 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.bina
 
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
 import com.krisztianszenasi.beetroot.ast.nodes.node.helpers.DummyNode;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.BinaryExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.binary_expression_node.helpers.DummyBinary1;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.binary_expression_node.helpers.DummyBinary2;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.BinaryExpression;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.DummyExpression;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionAlwaysEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionNeverEquals;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,57 +12,67 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinaryExpressionTest {
-    private static BinaryExpression dummyKind1;
-    private static BinaryExpression dummyKind2;
+    private static BinaryExpression dummyBinary;
+    private static final String operator = "operator";
 
     @BeforeAll
     static void init() {
-        dummyKind1 = new DummyBinary1();
-        dummyKind2 = new DummyBinary2();
+        dummyBinary = new BinaryExpression(
+                operator,
+                new DummyExpression(),
+                new DummyExpression()
+        );
     }
 
     @Test
-    void testEquals_WhenSameClassSameExpressions_ReturnsTrue() {
-        BinaryExpression binary = new DummyBinary1();
-        binary.setLeft(new ExpressionAlwaysEquals());
-        binary.setLeft(new ExpressionAlwaysEquals());
+    void testEquals_WhenSameOperatorAndExpressions_ReturnsTrue() {
+        BinaryExpression binary = new BinaryExpression(
+                operator,
+                new ExpressionAlwaysEquals(),
+                new ExpressionAlwaysEquals()
+        );
 
-        assertEquals(binary, dummyKind1);
+        assertEquals(binary, dummyBinary);
     }
 
     @Test
-    void testEquals_WhenDifferentClassSameExpressions_ReturnsFalse() {
-        BinaryExpression binary = new DummyBinary1();
-        binary.setLeft(new ExpressionAlwaysEquals());
-        binary.setLeft(new ExpressionAlwaysEquals());
+    void testEquals_WhenDifferentOperator_ReturnsFalse() {
+        BinaryExpression binary = new BinaryExpression(
+                operator + "difference",
+                new ExpressionAlwaysEquals(),
+                new ExpressionAlwaysEquals()
+        );
 
-        assertNotEquals(binary, dummyKind2);
+        assertNotEquals(binary, dummyBinary);
     }
 
     @Test
-    void testEquals_WhenSameClassDifferentExpressions_ReturnsFalse() {
-        BinaryExpression binary = new DummyBinary1();
-        binary.setLeft(new ExpressionNeverEquals());
-        binary.setLeft(new ExpressionNeverEquals());
+    void testEquals_WhenDifferentLeftExpression_ReturnsFalse() {
+        BinaryExpression binary = new BinaryExpression(
+                operator,
+                new ExpressionNeverEquals(),
+                new ExpressionAlwaysEquals()
+        );
 
-        assertNotEquals(binary, dummyKind1);
+        assertNotEquals(binary, dummyBinary);
     }
 
     @Test
-    void testEquals_WhenDifferentClassDifferentExpressions_ReturnsFalse() {
-        BinaryExpression binary = new DummyBinary1();
-        binary.setLeft(new ExpressionNeverEquals());
-        binary.setLeft(new ExpressionNeverEquals());
+    void testEquals_WhenDifferentRightExpression_ReturnsFalse() {
+        BinaryExpression binary = new BinaryExpression(
+                operator,
+                new ExpressionAlwaysEquals(),
+                new ExpressionNeverEquals()
+        );
 
-        assertNotEquals(binary, dummyKind2);
+        assertNotEquals(binary, dummyBinary);
     }
 
     @Test
     void testEquals_WhenDifferentNode_ReturnsFalse() {
-        BinaryExpression binary = new DummyBinary1();
         Node differentNode = new DummyNode();
 
-        assertNotEquals(binary, differentNode);
-        assertNotEquals(differentNode, binary);
+        assertNotEquals(dummyBinary, differentNode);
+        assertNotEquals(differentNode, dummyBinary);
     }
 }

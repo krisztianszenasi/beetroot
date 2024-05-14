@@ -34,7 +34,7 @@ flowControl: BREAK | CONTINUE;
 // Simple statements
 // ---------------------------------------------------------------------------------------------------------------------
 variableDeclaration
-    :   mutability variableName declarationType? assignment expression
+    :   mutability variableName declarationType? (ASSIGN expression)?
     ;
 assignmentStatement: primary assignment expression;
 expression

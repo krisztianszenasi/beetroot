@@ -8,6 +8,9 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.VariableDeclarat
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.assignment_satetement_node.helpers.AssignmentAlwaysEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.assignment_satetement_node.helpers.AssignmentNeverEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.assignment_satetement_node.helpers.DummyAssignment;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.DummyExpression;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionAlwaysEquals;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionNeverEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -23,9 +26,9 @@ class VariableDeclarationNodeEqualsTest {
         dummyDeclaration = new VariableDeclarationNode(
                 Mutability.MUTABLE,
                 "dummy",
-                mock(TypeNode.class)
+                mock(TypeNode.class),
+                new DummyExpression()
         );
-        dummyDeclaration.setInitialAssignment(DummyAssignment.getInstance());
     }
 
     @Test
@@ -33,9 +36,9 @@ class VariableDeclarationNodeEqualsTest {
         VariableDeclarationNode everythingEquals = new VariableDeclarationNode(
                 dummyDeclaration.getMutability(),
                 dummyDeclaration.getVariableName(),
-                new TypeAlwaysEquals()
+                new TypeAlwaysEquals(),
+                new ExpressionAlwaysEquals()
         );
-        everythingEquals.setInitialAssignment(AssignmentAlwaysEquals.getInstance());
 
         assertEquals(everythingEquals, dummyDeclaration);
     }
@@ -45,9 +48,9 @@ class VariableDeclarationNodeEqualsTest {
         VariableDeclarationNode mutabilityDiffers = new VariableDeclarationNode(
                 getDifferentMutabilityThan(dummyDeclaration.getMutability()),
                 dummyDeclaration.getVariableName(),
-                new TypeAlwaysEquals()
+                new TypeAlwaysEquals(),
+                new ExpressionAlwaysEquals()
         );
-        mutabilityDiffers.setInitialAssignment(AssignmentAlwaysEquals.getInstance());
 
         assertNotEquals(mutabilityDiffers, dummyDeclaration);
     }
@@ -57,9 +60,9 @@ class VariableDeclarationNodeEqualsTest {
         VariableDeclarationNode varNameDiffers = new VariableDeclarationNode(
                 dummyDeclaration.getMutability(),
                 dummyDeclaration.getVariableName() + "difference",
-                new TypeAlwaysEquals()
+                new TypeAlwaysEquals(),
+                new ExpressionAlwaysEquals()
         );
-        varNameDiffers.setInitialAssignment(AssignmentAlwaysEquals.getInstance());
 
         assertNotEquals(varNameDiffers, dummyDeclaration);
     }
@@ -69,9 +72,9 @@ class VariableDeclarationNodeEqualsTest {
         VariableDeclarationNode typeDiffers = new VariableDeclarationNode(
                 dummyDeclaration.getMutability(),
                 dummyDeclaration.getVariableName(),
-                new TypeNeverEquals()
+                new TypeNeverEquals(),
+                new ExpressionAlwaysEquals()
         );
-        typeDiffers.setInitialAssignment(AssignmentAlwaysEquals.getInstance());
 
         assertNotEquals(typeDiffers, dummyDeclaration);
     }
@@ -81,9 +84,9 @@ class VariableDeclarationNodeEqualsTest {
         VariableDeclarationNode assignmentDiffers = new VariableDeclarationNode(
                 dummyDeclaration.getMutability(),
                 dummyDeclaration.getVariableName(),
-                new TypeAlwaysEquals()
+                new TypeAlwaysEquals(),
+                new ExpressionNeverEquals()
         );
-        assignmentDiffers.setInitialAssignment(AssignmentNeverEquals.getInstance());
 
         assertNotEquals(assignmentDiffers, dummyDeclaration);
     }

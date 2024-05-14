@@ -15,15 +15,6 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.block.logical.WhileStat
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.AssignmentStatementNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.ReturnStatement;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.VariableDeclarationNode;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.RangeExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.add_sub.AdditionExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.add_sub.SubtractionExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.compare.*;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.logical.AndExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.logical.OrExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.mul_div_rem.DivideExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.mul_div_rem.MultiplyExpression;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.binary.mul_div_rem.ReminderExpression;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.FunctionCallExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.IndexedExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.UnaryExpressionNode;
@@ -45,21 +36,6 @@ abstract public class AstVisitor<T> {
         return node.accept(this);
     }
     public abstract T visitFileNode(FileNode node);
-    public abstract T visitAdditionExpression(AdditionExpression node);
-    public abstract T visitSubtractionExpression(SubtractionExpression node);
-    public abstract T visitContainsExpression(ContainsExpression node);
-    public abstract T visitEqualExpression(EqualExpression node);
-    public abstract T visitGreaterThanEqualExpression(GreaterThanEqualExpression node);
-    public abstract T visitGreaterThanExpression(GreaterThanExpression node);
-    public abstract T visitLessThanEqualExpression(LessThanEqualExpression node);
-    public abstract T visitLessThanExpression(LessThanExpression node);
-    public abstract T visitNotEqualExpression(NotEqualExpression node);
-    public abstract T visitAndExpression(AndExpression node);
-    public abstract T visitOrExpression(OrExpression node);
-    public abstract T visitDivideExpression(DivideExpression node);
-    public abstract T visitMultiplyExpression(MultiplyExpression node);
-    public abstract T visitReminderExpression(ReminderExpression node);
-    public abstract T visitRangeExpression(RangeExpression node);
     public abstract T visitDictElementNode(DictElementNode node);
     public abstract T visitDictionaryLiteralNode(DictionaryLiteralNode node);
     public abstract T visitListLiteralNode(ListLiteralNode node);
