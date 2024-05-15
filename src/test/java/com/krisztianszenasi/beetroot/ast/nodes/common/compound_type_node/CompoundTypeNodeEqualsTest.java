@@ -2,7 +2,6 @@ package com.krisztianszenasi.beetroot.ast.nodes.common.compound_type_node;
 
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
 import com.krisztianszenasi.beetroot.ast.nodes.common.CompoundTypeNode;
-import com.krisztianszenasi.beetroot.ast.nodes.common.PrimitiveTypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.DummyType;
 import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.TypeAlwaysEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.TypeNeverEquals;

@@ -6,15 +6,15 @@ import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
 
 public class BSDeclarationTypeBuilder {
 
-    public BSType getTypeFor(TypeNode type, BSTypeSystem typeSystem) {
+    public BSType getTypeFor(TypeNode type, TypeSystem typeSystem) {
         return type.accept(this, typeSystem);
     }
 
-    public BSSimpleType getTypeForPrimitiveTypeNode(PrimitiveTypeNode node, BSTypeSystem typeSystem) {
+    public BSSimpleType getTypeForPrimitiveTypeNode(PrimitiveTypeNode node, TypeSystem typeSystem) {
         return typeSystem.getType(node.getType());
     }
 
-    public BSCompoundType getTypeForCompoundTypeNode(CompoundTypeNode node, BSTypeSystem typeSystem) {
+    public BSCompoundType getTypeForCompoundTypeNode(CompoundTypeNode node, TypeSystem typeSystem) {
         return new BSCompoundType(
                 getTypeFor(node.getType(), typeSystem),
                 getTypeFor(node.getInnerType(), typeSystem)

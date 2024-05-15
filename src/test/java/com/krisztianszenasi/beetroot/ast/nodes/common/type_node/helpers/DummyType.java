@@ -5,6 +5,7 @@ import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSDeclarationTypeBuilder;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSTypeSystem;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.TypeSystem;
 
 public class DummyType extends TypeNode {
     @Override
@@ -13,7 +14,7 @@ public class DummyType extends TypeNode {
     }
 
     @Override
-    public BSType accept(BSDeclarationTypeBuilder typeBuilder, BSTypeSystem typeSystem) {
+    public BSType accept(BSDeclarationTypeBuilder typeBuilder, TypeSystem typeSystem) {
         return null;
     }
 }

@@ -18,7 +18,7 @@ public class TypeSystemFixture {
     protected static TypeSystem typeSystem;
 
     @BeforeAll
-    static void init() {
+    static void initTypeSystem() {
         // initialize types
         errorType = new BSSimpleType("error");
         parentType = new BSSimpleType("parent");
