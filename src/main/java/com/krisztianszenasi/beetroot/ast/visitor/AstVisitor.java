@@ -2,8 +2,7 @@ package com.krisztianszenasi.beetroot.ast.visitor;
 
 import com.krisztianszenasi.beetroot.ast.nodes.FileNode;
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
-import com.krisztianszenasi.beetroot.ast.nodes.common.DictTypeNode;
-import com.krisztianszenasi.beetroot.ast.nodes.common.ListTypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.CompoundTypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.PrimitiveTypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration.FunctionDefinitionNode;
@@ -60,7 +59,6 @@ abstract public class AstVisitor<T> {
     public abstract T visitIfStatementNode(IfStatementNode node);
     public abstract T visitWhileStatementNode(WhileStatementNode node);
     public abstract T visitBlockNode(BlockNode node);
-    public abstract T visitDictTypeNode(DictTypeNode node);
-    public abstract T visitListTypeNode(ListTypeNode node);
+    public abstract T visitCompoundTypeNode(CompoundTypeNode node);
     public abstract T visitPrimitiveTypeNode(PrimitiveTypeNode node);
 }

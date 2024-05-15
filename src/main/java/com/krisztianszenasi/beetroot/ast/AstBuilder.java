@@ -5,7 +5,6 @@ import com.krisztianszenasi.beetroot.ast.nodes.FileNode;
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
 import com.krisztianszenasi.beetroot.ast.nodes.common.*;
 import com.krisztianszenasi.beetroot.ast.nodes.common.enums.Mutability;
-import com.krisztianszenasi.beetroot.ast.nodes.common.enums.PrimitiveType;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.StatementNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration.FunctionDefinitionNode;
@@ -302,16 +301,20 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitDictType(BeetrootParser.DictTypeContext ctx) {
-        return new DictTypeNode(
-                (TypeNode) visit(ctx.keyType().type()),
-                (TypeNode) visit(ctx.valueType().type())
+        return new CompoundTypeNode(
+                new PrimitiveTypeNode(ctx.DICT_T().toString()),
+                new CompoundTypeNode(
+                        visitType(ctx.keyType().type()),
+                        visitType(ctx.valueType().type())
+                )
         );
     }
 
     @Override
     public Node visitListType(BeetrootParser.ListTypeContext ctx) {
-        return new ListTypeNode(
-                (TypeNode) visit(ctx.valueType().type())
+        return new CompoundTypeNode(
+                new PrimitiveTypeNode(ctx.LIST_T().toString()),
+                visitType(ctx.valueType().type())
         );
     }
 

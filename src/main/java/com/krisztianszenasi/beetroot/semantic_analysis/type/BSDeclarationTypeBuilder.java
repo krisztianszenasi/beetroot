@@ -1,7 +1,6 @@
 package com.krisztianszenasi.beetroot.semantic_analysis.type;
 
-import com.krisztianszenasi.beetroot.ast.nodes.common.DictTypeNode;
-import com.krisztianszenasi.beetroot.ast.nodes.common.ListTypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.CompoundTypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.PrimitiveTypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
 
@@ -15,20 +14,10 @@ public class BSDeclarationTypeBuilder {
         return typeSystem.getType(node.getType());
     }
 
-    public BSCompoundType getTypeForListTypeNode(ListTypeNode node, BSTypeSystem typeSystem) {
+    public BSCompoundType getTypeForCompoundTypeNode(CompoundTypeNode node, BSTypeSystem typeSystem) {
         return new BSCompoundType(
-                typeSystem.getType("list"),
-                getTypeFor(node.getElementType(), typeSystem)
-        );
-    }
-
-    public BSCompoundType getTypeForDictTypeNode(DictTypeNode node, BSTypeSystem typeSystem) {
-        return new BSCompoundType(
-                typeSystem.getType("dict"),
-                new BSCompoundType(
-                        getTypeFor(node.getKeyType(), typeSystem),
-                        getTypeFor(node.getValueType(), typeSystem)
-                )
+                getTypeFor(node.getType(), typeSystem),
+                getTypeFor(node.getInnerType(), typeSystem)
         );
     }
 }
