@@ -1,13 +1,12 @@
-package com.krisztianszenasi.beetroot.semnatic_analysis.type.operator;
+package com.krisztianszenasi.beetroot.semantic_analysis.type.operator;
 
-import com.krisztianszenasi.beetroot.semnatic_analysis.type.BSType;
-import com.krisztianszenasi.beetroot.semnatic_analysis.type.operator.BSOperator;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 
 public class BSUnaryOperator extends BSOperator {
 
     BSType expressionType;
 
-    public BSUnaryOperator(BSType resultType, OperationKind kind, BSType expressionType) {
+    public BSUnaryOperator(BSType resultType, String kind, BSType expressionType) {
         super(resultType, kind);
         this.expressionType = expressionType;
     }
@@ -16,7 +15,7 @@ public class BSUnaryOperator extends BSOperator {
         return expressionType;
     }
 
-    public boolean isCompatibleWith(OperationKind kind, BSType type) {
+    public boolean isCompatibleWith(String kind, BSType type) {
         boolean kindMatches = isCompatibleWith(kind);
         boolean typesAreCompatible = type.isCompatibleWith(expressionType);
 

@@ -1,4 +1,4 @@
-package com.krisztianszenasi.beetroot.semnatic_analysis.type;
+package com.krisztianszenasi.beetroot.semantic_analysis.type;
 
 import com.krisztianszenasi.beetroot.ast.nodes.common.DictTypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.ListTypeNode;
@@ -12,28 +12,19 @@ public class BSDeclarationTypeBuilder {
     }
 
     public BSSimpleType getTypeForPrimitiveTypeNode(PrimitiveTypeNode node, BSTypeSystem typeSystem) {
-        BSSimpleType typeFound;
-        switch(node.getPrimitiveType()) {
-            case DEC ->  typeFound = typeSystem.DEC;
-            case INT -> typeFound = typeSystem.INT;
-            case STR -> typeFound = typeSystem.STR;
-            case BOOL -> typeFound = typeSystem.BOOL;
-            case NONE -> typeFound = typeSystem.NONE;
-            default -> typeFound = typeSystem.ANY;
-        }
-        return typeFound;
+        return typeSystem.getType(node.getType());
     }
 
     public BSCompoundType getTypeForListTypeNode(ListTypeNode node, BSTypeSystem typeSystem) {
         return new BSCompoundType(
-                typeSystem.LIST,
+                typeSystem.getType("list"),
                 getTypeFor(node.getElementType(), typeSystem)
         );
     }
 
     public BSCompoundType getTypeForDictTypeNode(DictTypeNode node, BSTypeSystem typeSystem) {
         return new BSCompoundType(
-                typeSystem.DICT,
+                typeSystem.getType("dict"),
                 new BSCompoundType(
                         getTypeFor(node.getKeyType(), typeSystem),
                         getTypeFor(node.getValueType(), typeSystem)

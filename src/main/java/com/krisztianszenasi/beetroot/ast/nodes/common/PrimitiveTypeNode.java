@@ -2,6 +2,9 @@ package com.krisztianszenasi.beetroot.ast.nodes.common;
 
 
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSDeclarationTypeBuilder;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSTypeSystem;
 
 import java.util.Objects;
 
@@ -10,6 +13,10 @@ public class PrimitiveTypeNode extends TypeNode{
 
     public PrimitiveTypeNode(String type){
         this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override
@@ -28,5 +35,10 @@ public class PrimitiveTypeNode extends TypeNode{
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
         return visitor.visitPrimitiveTypeNode(this);
+    }
+
+    @Override
+    public BSType accept(BSDeclarationTypeBuilder typeBuilder, BSTypeSystem typeSystem) {
+        return typeBuilder.getTypeForPrimitiveTypeNode(this, typeSystem);
     }
 }

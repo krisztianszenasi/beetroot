@@ -1,4 +1,6 @@
-package com.krisztianszenasi.beetroot.semnatic_analysis.type;
+package com.krisztianszenasi.beetroot.semantic_analysis.type;
+
+import java.util.Objects;
 
 public class BSCompoundType extends BSType {
     private final BSType type;
@@ -18,5 +20,18 @@ public class BSCompoundType extends BSType {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BSCompoundType that = (BSCompoundType) o;
+        return Objects.equals(type, that.type) && Objects.equals(innerType, that.innerType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, innerType);
     }
 }

@@ -1,7 +1,6 @@
-package com.krisztianszenasi.beetroot.semnatic_analysis.type.operator;
+package com.krisztianszenasi.beetroot.semantic_analysis.type.operator;
 
-import com.krisztianszenasi.beetroot.semnatic_analysis.type.BSType;
-import com.krisztianszenasi.beetroot.semnatic_analysis.type.operator.BSOperator;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 
 public class BSBinaryOperator extends BSOperator {
     BSType leftExpressionType;
@@ -9,7 +8,7 @@ public class BSBinaryOperator extends BSOperator {
 
     public BSBinaryOperator(
             BSType resultType,
-            OperationKind kind,
+            String kind,
             BSType leftExpressionType,
             BSType rightExpressionType
     ) {
@@ -26,7 +25,7 @@ public class BSBinaryOperator extends BSOperator {
         return rightExpressionType;
     }
 
-    public boolean isCompatibleWith(OperationKind kind, BSType leftType, BSType rightType) {
+    public boolean isCompatibleWith(String kind, BSType leftType, BSType rightType) {
         boolean kindMatches = isCompatibleWith(kind);
         boolean leftsAreCompatible = leftType.isCompatibleWith(leftExpressionType);
         boolean rightsAreCompatible = rightType.isCompatibleWith(rightExpressionType);

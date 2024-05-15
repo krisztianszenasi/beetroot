@@ -1,4 +1,4 @@
-package com.krisztianszenasi.beetroot.semnatic_analysis.type.operator;
+package com.krisztianszenasi.beetroot.semantic_analysis.type.operator;
 
 public enum OperationKind {
     PLUS,

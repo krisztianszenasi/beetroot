@@ -1,6 +1,6 @@
-package com.krisztianszenasi.beetroot.semnatic_analysis;
+package com.krisztianszenasi.beetroot.semantic_analysis;
 
-import com.krisztianszenasi.beetroot.semnatic_analysis.symbol.VariableSymbol;
+import com.krisztianszenasi.beetroot.semantic_analysis.symbol.VariableSymbol;
 
 import java.util.HashMap;
 

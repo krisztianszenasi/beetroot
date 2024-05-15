@@ -1,6 +1,6 @@
-package com.krisztianszenasi.beetroot.semnatic_analysis.symbol;
+package com.krisztianszenasi.beetroot.semantic_analysis.symbol;
 
-import com.krisztianszenasi.beetroot.semnatic_analysis.type.BSType;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 
 public class VariableSymbol {
     private final String name;
