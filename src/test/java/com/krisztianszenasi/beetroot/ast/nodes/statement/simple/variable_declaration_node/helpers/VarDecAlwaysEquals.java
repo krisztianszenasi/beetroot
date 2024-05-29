@@ -1,8 +1,8 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.variable_declaration_node.helpers;
 
-import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.TypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.enums.Mutability;
-import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.DummyType;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.type_node.helpers.DummyType;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.VariableDeclarationNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.DummyExpression;

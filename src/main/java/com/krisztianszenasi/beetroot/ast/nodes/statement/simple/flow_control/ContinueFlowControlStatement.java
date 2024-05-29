@@ -5,6 +5,7 @@ import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 public class ContinueFlowControlStatement extends FlowControlStatement{
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitContinueFlowControlStatement(this);
     }
 }

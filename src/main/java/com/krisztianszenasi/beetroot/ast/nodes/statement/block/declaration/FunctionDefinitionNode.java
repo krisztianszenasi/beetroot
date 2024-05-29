@@ -1,6 +1,6 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration;
 
-import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.TypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
@@ -64,6 +64,7 @@ public class FunctionDefinitionNode extends DeclarationBlockNode {
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitFunctionDefinitionNode(this);
     }
 }

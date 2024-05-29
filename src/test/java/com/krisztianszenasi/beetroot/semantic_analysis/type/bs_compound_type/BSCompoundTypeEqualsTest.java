@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BSCompoundTypeEqualsTest {
 
     @Test
-    void testEquals_WhenTypeAndInnerSame_ReturnsTrue() {
+    void testEquals_WhenLeftAndRightSame_ReturnsTrue() {
         BSCompoundType myCompound1 = new BSCompoundType(
                 new BSTypeAlwaysEqualsAndAlwaysCompatible(),
                 new BSTypeAlwaysEqualsAndAlwaysCompatible()
@@ -25,7 +25,7 @@ class BSCompoundTypeEqualsTest {
     }
 
     @Test
-    void testEquals_WhenTypeDiffers_ReturnsFalse() {
+    void testEquals_WhenLeftDiffers_ReturnsFalse() {
         BSCompoundType myCompound1 = new BSCompoundType(
                 new BSTypeNeverEqualsAndNeverCompatible(),
                 new BSTypeAlwaysEqualsAndAlwaysCompatible()
@@ -40,7 +40,7 @@ class BSCompoundTypeEqualsTest {
     }
 
     @Test
-    void testEquals_WhenInnerDiffers_ReturnsFalse() {
+    void testEquals_WhenRightDiffers_ReturnsFalse() {
         BSCompoundType myCompound1 = new BSCompoundType(
                 new BSTypeAlwaysEqualsAndAlwaysCompatible(),
                 new BSTypeNeverEqualsAndNeverCompatible()

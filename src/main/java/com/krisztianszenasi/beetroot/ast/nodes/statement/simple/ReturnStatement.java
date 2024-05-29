@@ -28,6 +28,11 @@ public class ReturnStatement extends SimpleStatementNode{
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitReturnStatement(this);
+    }
+
+    public ExpressionNode getExpressionNode() {
+        return expressionNode;
     }
 }

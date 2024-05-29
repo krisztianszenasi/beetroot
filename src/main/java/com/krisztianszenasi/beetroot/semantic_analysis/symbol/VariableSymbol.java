@@ -6,11 +6,13 @@ public class VariableSymbol {
     private final String name;
     private final BSType type;
     private final boolean mutable;
+    private final boolean hasValue;
 
-    public VariableSymbol(String name, BSType type, boolean mutable) {
+    public VariableSymbol(String name, BSType type, boolean mutable, boolean hasValue) {
         this.name = name;
         this.type = type;
         this.mutable = mutable;
+        this.hasValue = hasValue;
     }
 
     public String getName() {
@@ -22,5 +24,8 @@ public class VariableSymbol {
     }
     public boolean canBeChanged() {
         return mutable;
+    }
+    public boolean hasValue() {
+        return hasValue;
     }
 }

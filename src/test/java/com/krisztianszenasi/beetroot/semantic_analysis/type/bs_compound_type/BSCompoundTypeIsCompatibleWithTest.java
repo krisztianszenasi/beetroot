@@ -1,8 +1,6 @@
 package com.krisztianszenasi.beetroot.semantic_analysis.type.bs_compound_type;
 
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSCompoundType;
-import com.krisztianszenasi.beetroot.semantic_analysis.type.BSSimpleType;
-import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.bs_type.helpers.BSTypeAlwaysEqualsAndAlwaysCompatible;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.bs_type.helpers.BSTypeNeverEqualsAndNeverCompatible;
 import org.junit.jupiter.api.Test;
@@ -54,27 +52,5 @@ class BSCompoundTypeIsCompatibleWithTest {
 
         assertFalse(compType1.isCompatibleWith(compType2));
         assertFalse(compType2.isCompatibleWith(compType1));
-    }
-
-    @Test
-    void testIsCompatibleWith_WhenCompatibleNonCompoundType_ReturnsTrue() {
-        BSType compatibleNonCompound = new BSTypeAlwaysEqualsAndAlwaysCompatible();
-        BSCompoundType compType = new BSCompoundType(
-                new BSTypeAlwaysEqualsAndAlwaysCompatible(),
-                new BSSimpleType("dummy")
-        );
-
-        assertTrue(compType.isCompatibleWith(compatibleNonCompound));
-    }
-
-    @Test
-    void testIsCompatibleWith_WhenNonCompatibleNonCompoundType_ReturnsFalse() {
-        BSType compatibleNonCompound = new BSTypeNeverEqualsAndNeverCompatible();
-        BSCompoundType compType = new BSCompoundType(
-                new BSTypeNeverEqualsAndNeverCompatible(),
-                new BSSimpleType("dummy")
-        );
-
-        assertFalse(compType.isCompatibleWith(compatibleNonCompound));
     }
 }

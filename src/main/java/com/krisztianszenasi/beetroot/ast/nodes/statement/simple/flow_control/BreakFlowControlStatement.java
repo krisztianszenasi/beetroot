@@ -5,6 +5,7 @@ import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 public class BreakFlowControlStatement extends FlowControlStatement{
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitBreakFlowControlStatement(this);
     }
 }

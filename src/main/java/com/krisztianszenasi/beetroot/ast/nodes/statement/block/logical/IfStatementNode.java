@@ -11,6 +11,7 @@ public class IfStatementNode extends LogicalBlockNode {
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitIfStatementNode(this);
     }
 }

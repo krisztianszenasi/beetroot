@@ -1,8 +1,8 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration.parameter_node;
 
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
-import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.TypeAlwaysEquals;
-import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.TypeNeverEquals;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.type_node.helpers.TypeAlwaysEquals;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.type_node.helpers.TypeNeverEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.node.helpers.DummyNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration.ParameterNode;
 import org.junit.jupiter.api.Test;

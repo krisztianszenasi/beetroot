@@ -63,12 +63,12 @@ public class BeetrootParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'('", "')'", "'['", "']'", "'{'", "'}'", "':'", "','", "'.'", 
-			"'=='", "'!='", "'!'", "'<'", "'>'", "'<='", "'>='", "'in'", "'='", "'+'", 
-			"'-'", "'*'", "'/'", "'%'", "'->'", "'and'", "'or'", "'fun'", "'if'", 
-			"'elif'", "'else'", "'while'", "'for'", "'end'", "'var'", "'val'", "'return'", 
-			"'break'", "'continue'", "'int'", "'dec'", "'str'", "'bool'", "'any'", 
-			"'none'", null, null, null, "'true'", "'false'", "'maybe'", "'list'", 
-			"'dict'", "'range'"
+			"'=='", "'!='", "'not'", "'<'", "'>'", "'<='", "'>='", "'in'", "'='", 
+			"'+'", "'-'", "'*'", "'/'", "'%'", "'->'", "'and'", "'or'", "'fun'", 
+			"'if'", "'elif'", "'else'", "'while'", "'for'", "'end'", "'var'", "'val'", 
+			"'return'", "'break'", "'continue'", "'int'", "'dec'", "'str'", "'bool'", 
+			"'any'", "'none'", null, null, null, "'true'", "'false'", "'maybe'", 
+			"'list'", "'dict'", "'range'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();

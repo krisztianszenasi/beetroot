@@ -4,6 +4,7 @@ import com.krisztianszenasi.beetroot.ast.nodes.Node;
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +34,11 @@ public class ParameterListNode extends Node {
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitParameterListNode(this);
+    }
+
+    public List<ParameterNode> getParameters() {
+        return Collections.unmodifiableList(parameters);
     }
 }

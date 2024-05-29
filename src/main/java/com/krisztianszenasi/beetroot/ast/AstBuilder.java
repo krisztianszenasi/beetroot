@@ -5,6 +5,10 @@ import com.krisztianszenasi.beetroot.ast.nodes.FileNode;
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
 import com.krisztianszenasi.beetroot.ast.nodes.common.*;
 import com.krisztianszenasi.beetroot.ast.nodes.common.enums.Mutability;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.CompoundTypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.SimpleTypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.TypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.WrapperTypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.StatementNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration.FunctionDefinitionNode;
@@ -17,8 +21,9 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.AssignmentStatem
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.ReturnStatement;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.VariableDeclarationNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.BinaryExpression;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.BinaryExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.FunctionCallExpressionNode;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.IndexedExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.PrimaryExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.UnaryExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal.BoolLiteralNode;
@@ -36,20 +41,41 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.flow_control.Con
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.flow_control.FlowControlStatement;
 import com.krisztianszenasi.beetroot.gen.BeetrootBaseVisitor;
 import com.krisztianszenasi.beetroot.gen.BeetrootParser;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
 
 public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     private final BlockTracker tracker = new BlockTracker();
 
     @Override
+    public Node visit(ParseTree tree) {
+        if(tree == null) {
+            return null;
+        }
+
+        Node result =  super.visit(tree);
+        setTokenLocation(result, tree);
+        return result;
+    }
+
+    @Override
     public Node visitFile(BeetrootParser.FileContext ctx) {
-        return new FileNode(visitBlock(ctx.block()));
+        return new FileNode((BlockNode) visit(ctx.block()));
     }
 
     @Override
     public BlockNode visitBlock(BeetrootParser.BlockContext ctx) {
         tracker.stepInto(new BlockNode());
-        super.visitBlock(ctx);
+        for(BeetrootParser.StatementContext statementCtx : ctx.statement()) {
+            visit(statementCtx);
+        }
         return tracker.stepOut();
     }
 
@@ -64,18 +90,19 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
     public Node visitIfStatement(BeetrootParser.IfStatementContext ctx) {
         IfStatementNode ifStatement = new IfStatementNode(
                 (ExpressionNode) visit(ctx.expression()),
-                visitBlock(ctx.block())
+                (BlockNode) visit(ctx.block())
         );
 
         IfStatementNode previousElIf = ifStatement;
         for(BeetrootParser.ElifBlockContext elIfCtx : ctx.elifBlock()) {
-            IfStatementNode currentElIf = visitElifBlock(elIfCtx);
+            IfStatementNode currentElIf = (IfStatementNode) visit(elIfCtx);
             BlockNode elseBlock = new BlockNode();
             elseBlock.addStatement(currentElIf);
             previousElIf.setElseBlock(elseBlock);
             previousElIf = currentElIf;
         }
-        previousElIf.setElseBlock(visitElseBlock(ctx.elseBlock()));
+
+        previousElIf.setElseBlock(safeVisit(() -> visit(ctx.elseBlock()), BlockNode.class));
 
         return ifStatement;
     }
@@ -84,8 +111,8 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
     public Node visitWhileStatement(BeetrootParser.WhileStatementContext ctx) {
         return new WhileStatementNode(
                 (ExpressionNode) visit(ctx.expression()),
-                visitBlock(ctx.block()),
-                visitElseBlock(ctx.elseBlock())
+                (BlockNode) visit(ctx.block()),
+                safeVisit(() -> visit(ctx.elseBlock()), BlockNode.class)
         );
     }
 
@@ -93,12 +120,12 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
     public Node visitForStatement(BeetrootParser.ForStatementContext ctx) {
         return new ForStatementNode(
                 (ExpressionNode) visit(ctx.forHeader().expression()),
-                visitBlock(ctx.block()),
-                visitElseBlock(ctx.elseBlock()),
+                (BlockNode) visit(ctx.block()),
+                safeVisit(() -> visit(ctx.elseBlock()), BlockNode.class),
                 new VariableDeclarationNode(
                         Mutability.MUTABLE,
-                        retrieveVariableName(ctx.forHeader().variableName()),
-                        visitType(ctx.forHeader().type()),
+                        getFullSource(ctx.forHeader().variableName()),
+                        safeVisit(() -> visit(ctx.forHeader().type()), TypeNode.class),
                         null
                 )
         );
@@ -106,28 +133,19 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitFunctionDefinition(BeetrootParser.FunctionDefinitionContext ctx) {
-        ParameterListNode parameters = visitFunctionParameters(ctx.functionParameters());
-
         return new FunctionDefinitionNode(
-                retrieveFunctionName(ctx.functionName()),
-                visitFunctionReturnType(ctx.functionReturnType()),
-                parameters,
-                visitBlock(ctx.block())
+                getFullSource(ctx.functionName()),
+                safeVisit(() -> visit(ctx.functionReturnType().type()), TypeNode.class),
+                (ParameterListNode) visit(ctx.functionParameters()),
+                (BlockNode) visit(ctx.block())
         );
-    }
-
-    @Override
-    public TypeNode visitFunctionReturnType(BeetrootParser.FunctionReturnTypeContext ctx) {
-        if(ctx == null)
-            return null;
-        return visitType(ctx.type());
     }
 
     @Override
     public ParameterListNode visitFunctionParameters(BeetrootParser.FunctionParametersContext ctx) {
         ParameterListNode parameters = new ParameterListNode();
         for(BeetrootParser.FunctionParameterContext paramCtx : ctx.functionParameter()) {
-            parameters.addParameter(visitFunctionParameter(paramCtx));
+            parameters.addParameter((ParameterNode) visit(paramCtx));
         }
         return parameters;
     }
@@ -136,41 +154,27 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
     public IfStatementNode visitElifBlock(BeetrootParser.ElifBlockContext ctx) {
         return ctx == null ? null : new IfStatementNode(
                 (ExpressionNode) visit(ctx.expression()),
-                visitBlock(ctx.block())
+                (BlockNode) visit(ctx.block())
         );
-    }
-
-    @Override
-    public BlockNode visitElseBlock(BeetrootParser.ElseBlockContext ctx) {
-        return ctx == null ? null : visitBlock(ctx.block());
     }
 
     @Override
     public VariableDeclarationNode visitVariableDeclaration(BeetrootParser.VariableDeclarationContext ctx) {
         return new VariableDeclarationNode(
                 retrieveMutability(ctx.mutability()),
-                retrieveVariableName(ctx.variableName()),
-                visitDeclarationType(ctx.declarationType()),
-                ctx.expression() == null ? null : (ExpressionNode) visit(ctx.expression())
+                getFullSource(ctx.variableName()),
+                safeVisit(() -> visit(ctx.declarationType().type()), TypeNode.class),
+                safeVisit(() -> visit(ctx.expression()), ExpressionNode.class)
         );
     }
 
     @Override
     public Node visitAssignmentStatement(BeetrootParser.AssignmentStatementContext ctx) {
-        PrimaryExpressionNode primary = (PrimaryExpressionNode) visit(ctx.primary());
-
         return new AssignmentStatementNode(
-                primary,
-                ctx.assignment().children.get(0).toString(),
-                ctx.expression() == null ? null : (ExpressionNode) visit(ctx.expression())
+                (PrimaryExpressionNode) visit(ctx.primary()),
+                getFullSource(ctx.assignment()),
+                (ExpressionNode) visit(ctx.expression())
         );
-    }
-
-    @Override
-    public TypeNode visitDeclarationType(BeetrootParser.DeclarationTypeContext ctx) {
-        if(ctx == null)
-            return null;
-        return (TypeNode) super.visitDeclarationType(ctx);
     }
 
     @Override
@@ -186,7 +190,7 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
     @Override
     public FunctionCallExpressionNode visitFunctionCall(BeetrootParser.FunctionCallContext ctx) {
         FunctionCallExpressionNode functionCall = new FunctionCallExpressionNode(
-            retrieveFunctionName(ctx.functionName())
+            getFullSource(ctx.functionName())
         );
         for(BeetrootParser.ExpressionContext argCtx : ctx.expression()) {
             functionCall.addArgument((ExpressionNode) visit(argCtx));
@@ -196,15 +200,15 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public StringLiteralNode visitStringLiteral(BeetrootParser.StringLiteralContext ctx) {
-        return new StringLiteralNode(ctx.STR_LIT().toString());
+        return new StringLiteralNode(getFullSource(ctx));
     }
 
     @Override
     public NumberLiteralNode visitNumberLiteral(BeetrootParser.NumberLiteralContext ctx) {
         if(ctx.DEC_LIT() != null) {
-            return new DecimalLiteralNode(ctx.DEC_LIT().toString());
+            return new DecimalLiteralNode(getFullSource(ctx));
         } else {
-            return new IntegerLiteralNode(ctx.INT_LIT().toString());
+            return new IntegerLiteralNode(getFullSource(ctx));
         }
     }
 
@@ -241,7 +245,7 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitVariableReference(BeetrootParser.VariableReferenceContext ctx) {
-        return new VariableReferenceLiteralNode(retrieveVariableName(ctx.variableName()));
+        return new VariableReferenceLiteralNode(getFullSource(ctx.variableName()));
     }
 
     @Override
@@ -251,8 +255,8 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitMulDivExpression(BeetrootParser.MulDivExpressionContext ctx) {
-        return new BinaryExpression(
-                ctx.mulDivOp().children.get(0).toString(),
+        return new BinaryExpressionNode(
+                getFullSource(ctx.mulDivOp()),
                 (ExpressionNode) visit(ctx.expression(0)),
                 (ExpressionNode) visit(ctx.expression(1))
         );
@@ -260,8 +264,8 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitAddSubExpression(BeetrootParser.AddSubExpressionContext ctx) {
-        return new BinaryExpression(
-                ctx.addSubOp().children.get(0).toString(),
+        return new BinaryExpressionNode(
+                getFullSource(ctx.addSubOp()),
                 (ExpressionNode) visit(ctx.expression(0)),
                 (ExpressionNode) visit(ctx.expression(1))
         );
@@ -269,8 +273,8 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitCompairExpression(BeetrootParser.CompairExpressionContext ctx) {
-        return new BinaryExpression(
-                ctx.compairOp().children.get(0).toString(),
+        return new BinaryExpressionNode(
+                getFullSource(ctx.compairOp()),
                 (ExpressionNode) visit(ctx.expression(0)),
                 (ExpressionNode) visit(ctx.expression(1))
         );
@@ -278,8 +282,8 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitLogicalExpression(BeetrootParser.LogicalExpressionContext ctx) {
-        return new BinaryExpression(
-                ctx.logicalOp().children.get(0).toString(),
+        return new BinaryExpressionNode(
+                getFullSource(ctx.logicalOp()),
                 (ExpressionNode) visit(ctx.expression(0)),
                 (ExpressionNode) visit(ctx.expression(1))
         );
@@ -287,7 +291,7 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public Node visitRangeExpression(BeetrootParser.RangeExpressionContext ctx) {
-        return new BinaryExpression(
+        return new BinaryExpressionNode(
                 "range",
                 (ExpressionNode) visit(ctx.expression(0)),
                 (ExpressionNode) visit(ctx.expression(1))
@@ -295,26 +299,26 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
     }
 
     @Override
-    public PrimitiveTypeNode visitPrimitiveType(BeetrootParser.PrimitiveTypeContext ctx) {
-        return new PrimitiveTypeNode(ctx.children.get(0).toString());
+    public SimpleTypeNode visitPrimitiveType(BeetrootParser.PrimitiveTypeContext ctx) {
+        return new SimpleTypeNode(getFullSource(ctx));
     }
 
     @Override
     public Node visitDictType(BeetrootParser.DictTypeContext ctx) {
-        return new CompoundTypeNode(
-                new PrimitiveTypeNode(ctx.DICT_T().toString()),
+        return new WrapperTypeNode(
+                ctx.DICT_T().toString(),
                 new CompoundTypeNode(
-                        visitType(ctx.keyType().type()),
-                        visitType(ctx.valueType().type())
+                        (TypeNode) visit(ctx.keyType().type()),
+                        (TypeNode) visit(ctx.valueType().type())
                 )
         );
     }
 
     @Override
     public Node visitListType(BeetrootParser.ListTypeContext ctx) {
-        return new CompoundTypeNode(
-                new PrimitiveTypeNode(ctx.LIST_T().toString()),
-                visitType(ctx.valueType().type())
+        return new WrapperTypeNode(
+                ctx.LIST_T().toString(),
+                (TypeNode) visit(ctx.valueType().type())
         );
     }
 
@@ -334,15 +338,21 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public ParameterNode visitFunctionParameter(BeetrootParser.FunctionParameterContext ctx) {
-        String paramName = retrieveVariableName(ctx.variableName());
+        String paramName = getFullSource(ctx.variableName());
         TypeNode paramType = (TypeNode) visit(ctx.type());
 
         return new ParameterNode(paramName, paramType);
     }
 
     @Override
-    public TypeNode visitType(BeetrootParser.TypeContext ctx) {
-        return ctx == null ? null : (TypeNode) super.visitType(ctx);
+    public Node visitPrimary(BeetrootParser.PrimaryContext ctx) {
+        if(ctx.primary() != null) {
+            return new IndexedExpressionNode(
+                    (PrimaryExpressionNode) visit(ctx.primary()),
+                    (ExpressionNode) visit(ctx.expression())
+            );
+        }
+        return super.visitPrimary(ctx);
     }
 
     // =================
@@ -357,11 +367,26 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
         }
     }
 
-    private String retrieveVariableName(BeetrootParser.VariableNameContext ctx) {
-        return ctx.ID().toString();
+    private void setTokenLocation(Node node, ParseTree tree) {
+        if (tree instanceof ParserRuleContext context && node != null) {
+            Token startToken = context.getStart();
+            int line = startToken.getLine();
+            int column = startToken.getCharPositionInLine();
+            node.setPosition(line, column);
+        }
     }
 
-    private String retrieveFunctionName(BeetrootParser.FunctionNameContext ctx) {
-        return ctx.ID().toString();
+    private String getFullSource(ParserRuleContext context) {
+        CharStream cs = context.start.getTokenSource().getInputStream();
+        int stopIndex = context.stop != null ? context.stop.getStopIndex() : -1;
+        return cs.getText(new Interval(context.start.getStartIndex(), stopIndex));
+    }
+
+    private <T extends Node> T safeVisit(Callable<Node> callable, Class<T> resultClass) {
+        try {
+            return resultClass.cast(callable.call());
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
