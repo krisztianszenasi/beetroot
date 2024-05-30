@@ -32,6 +32,17 @@ public class AssignmentStatementNode extends SimpleStatementNode{
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitAssignmentStatementNode(this);
+    }
+
+    public PrimaryExpressionNode getPrimary() {
+        return primary;
+    }
+    public String getOperator() {
+        return operator;
+    }
+    public ExpressionNode getExpression() {
+        return expression;
     }
 }

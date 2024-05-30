@@ -1,13 +1,10 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.variable_declaration_node;
 
-import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.TypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.enums.Mutability;
-import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.TypeAlwaysEquals;
-import com.krisztianszenasi.beetroot.ast.nodes.common.type_node.helpers.TypeNeverEquals;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.type_node.helpers.TypeAlwaysEquals;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.type_node.helpers.TypeNeverEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.VariableDeclarationNode;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.assignment_satetement_node.helpers.AssignmentAlwaysEquals;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.assignment_satetement_node.helpers.AssignmentNeverEquals;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.assignment_satetement_node.helpers.DummyAssignment;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.DummyExpression;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionAlwaysEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionNeverEquals;

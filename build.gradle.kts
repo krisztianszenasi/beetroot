@@ -1,10 +1,11 @@
 plugins {
     id("java")
     id("antlr")
+    id("com.github.ben-manes.versions") version "0.51.0"
 }
 
 group = "org.example"
-version = "1.0-SNAPSHOT"
+version = "0.0.1"
 
 repositories {
     mavenCentral()
@@ -13,7 +14,7 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.mockito:mockito-core:3.+")
+    testImplementation("org.mockito:mockito-core:5.12.0")
     implementation("org.antlr:antlr4:4.13.1")
 }
 

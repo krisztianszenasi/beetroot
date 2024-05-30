@@ -104,10 +104,7 @@ valueType: type;
 // Primary expressions
 // ---------------------------------------------------------------------------------------------------------------------
 parenthesizedExpression: LPAREN expression RPARAEN;
-unaryExpression
-    :   NEG expression
-    |   MINUS expression
-    ;
+unaryExpression: unaryOperator expression;
 functionCall
     :   functionName LPAREN (expression (COMMA expression)*)? RPARAEN;
 literalExpression
@@ -119,6 +116,8 @@ literalExpression
     |   boolLiteral
     ;
 
+// unary helpers
+unaryOperator: NEG | MINUS | PLUS;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Literal expressions
@@ -191,7 +190,7 @@ DOT: '.';
 
 EQ: '==';
 NEQ: '!=';
-NEG: '!';
+NEG: 'not';
 LT: '<';
 GT: '>';
 LTE: '<=';

@@ -1,6 +1,6 @@
 package com.krisztianszenasi.beetroot.ast.nodes.statement.simple;
 
-import com.krisztianszenasi.beetroot.ast.nodes.common.TypeNode;
+import com.krisztianszenasi.beetroot.ast.nodes.common.type.TypeNode;
 import com.krisztianszenasi.beetroot.ast.nodes.common.enums.Mutability;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
@@ -11,7 +11,7 @@ public class VariableDeclarationNode extends SimpleStatementNode{
 
     private final Mutability mutability;
     private final String variableName;
-    private final TypeNode declarationType;
+    private TypeNode declarationType;
     private final ExpressionNode initialValue;
 
     public VariableDeclarationNode(
@@ -25,7 +25,9 @@ public class VariableDeclarationNode extends SimpleStatementNode{
         this.declarationType = declarationType;
         this.initialValue = initialValue;
     }
-
+    public void setDeclarationType(TypeNode type) {
+        this.declarationType = type;
+    }
     public Mutability getMutability() {
         return mutability;
     }
@@ -52,6 +54,7 @@ public class VariableDeclarationNode extends SimpleStatementNode{
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitVariableDeclarationNode(this);
     }
 }

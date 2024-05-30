@@ -239,6 +239,12 @@ public interface BeetrootVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLiteralExpression(BeetrootParser.LiteralExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link BeetrootParser#unaryOperator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryOperator(BeetrootParser.UnaryOperatorContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link BeetrootParser#stringLiteral}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

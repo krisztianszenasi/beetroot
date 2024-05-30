@@ -390,6 +390,16 @@ public interface BeetrootListener extends ParseTreeListener {
 	 */
 	void exitLiteralExpression(BeetrootParser.LiteralExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BeetrootParser#unaryOperator}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryOperator(BeetrootParser.UnaryOperatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BeetrootParser#unaryOperator}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryOperator(BeetrootParser.UnaryOperatorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BeetrootParser#stringLiteral}.
 	 * @param ctx the parse tree
 	 */

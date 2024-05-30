@@ -461,6 +461,18 @@ public class BeetrootBaseListener implements BeetrootListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterUnaryOperator(BeetrootParser.UnaryOperatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryOperator(BeetrootParser.UnaryOperatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStringLiteral(BeetrootParser.StringLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}

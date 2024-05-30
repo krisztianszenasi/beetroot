@@ -3,6 +3,9 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prim
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+import com.krisztianszenasi.beetroot.semantic_analysis.Scope;
+import com.krisztianszenasi.beetroot.semantic_analysis.builders.expression_type.BSExpressionTypeBuilder;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 
 import java.util.Objects;
 
@@ -30,6 +33,18 @@ public class IndexedExpressionNode extends PrimaryExpressionNode{
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitIndexedExpressionNode(this);
+    }
+
+    public PrimaryExpressionNode getIndexed() {
+        return indexed;
+    }
+    public ExpressionNode getIndexPosition() { return indexPosition; }
+
+
+    @Override
+    public BSType accept(BSExpressionTypeBuilder builder, Scope scope) {
+        return builder.getTypeForIndexedExpressionNode(this, scope);
     }
 }

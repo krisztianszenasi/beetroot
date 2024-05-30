@@ -3,13 +3,18 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prim
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+import com.krisztianszenasi.beetroot.semantic_analysis.Scope;
+import com.krisztianszenasi.beetroot.semantic_analysis.builders.expression_type.BSExpressionTypeBuilder;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 
 import java.util.Objects;
 
 public class UnaryExpressionNode extends PrimaryExpressionNode {
+    String operator;
     ExpressionNode expression;
 
-    public UnaryExpressionNode(ExpressionNode expression) {
+    public UnaryExpressionNode(String operator, ExpressionNode expression) {
+        this.operator = operator;
         this.expression = expression;
     }
 
@@ -28,6 +33,20 @@ public class UnaryExpressionNode extends PrimaryExpressionNode {
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitUnaryExpressionNode(this);
+    }
+
+    @Override
+    public BSType accept(BSExpressionTypeBuilder builder, Scope scope) {
+        return builder.getTypeForUnaryExpressionNode(this, scope);
+    }
+
+    public ExpressionNode getExpression() {
+        return expression;
+    }
+
+    public String getOperator() {
+        return operator;
     }
 }

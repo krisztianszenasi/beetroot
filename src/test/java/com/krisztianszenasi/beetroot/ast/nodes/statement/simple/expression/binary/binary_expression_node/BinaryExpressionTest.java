@@ -2,7 +2,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.bina
 
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
 import com.krisztianszenasi.beetroot.ast.nodes.node.helpers.DummyNode;
-import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.BinaryExpression;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.BinaryExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.DummyExpression;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionAlwaysEquals;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.expression_node.helpers.ExpressionNeverEquals;
@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinaryExpressionTest {
-    private static BinaryExpression dummyBinary;
+    private static BinaryExpressionNode dummyBinary;
     private static final String operator = "operator";
 
     @BeforeAll
     static void init() {
-        dummyBinary = new BinaryExpression(
+        dummyBinary = new BinaryExpressionNode(
                 operator,
                 new DummyExpression(),
                 new DummyExpression()
@@ -26,7 +26,7 @@ class BinaryExpressionTest {
 
     @Test
     void testEquals_WhenSameOperatorAndExpressions_ReturnsTrue() {
-        BinaryExpression binary = new BinaryExpression(
+        BinaryExpressionNode binary = new BinaryExpressionNode(
                 operator,
                 new ExpressionAlwaysEquals(),
                 new ExpressionAlwaysEquals()
@@ -37,7 +37,7 @@ class BinaryExpressionTest {
 
     @Test
     void testEquals_WhenDifferentOperator_ReturnsFalse() {
-        BinaryExpression binary = new BinaryExpression(
+        BinaryExpressionNode binary = new BinaryExpressionNode(
                 operator + "difference",
                 new ExpressionAlwaysEquals(),
                 new ExpressionAlwaysEquals()
@@ -48,7 +48,7 @@ class BinaryExpressionTest {
 
     @Test
     void testEquals_WhenDifferentLeftExpression_ReturnsFalse() {
-        BinaryExpression binary = new BinaryExpression(
+        BinaryExpressionNode binary = new BinaryExpressionNode(
                 operator,
                 new ExpressionNeverEquals(),
                 new ExpressionAlwaysEquals()
@@ -59,7 +59,7 @@ class BinaryExpressionTest {
 
     @Test
     void testEquals_WhenDifferentRightExpression_ReturnsFalse() {
-        BinaryExpression binary = new BinaryExpression(
+        BinaryExpressionNode binary = new BinaryExpressionNode(
                 operator,
                 new ExpressionAlwaysEquals(),
                 new ExpressionNeverEquals()

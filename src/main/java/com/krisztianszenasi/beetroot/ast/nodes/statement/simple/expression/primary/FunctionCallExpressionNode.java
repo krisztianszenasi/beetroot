@@ -2,6 +2,9 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prim
 
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+import com.krisztianszenasi.beetroot.semantic_analysis.Scope;
+import com.krisztianszenasi.beetroot.semantic_analysis.builders.expression_type.BSExpressionTypeBuilder;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,10 @@ public class FunctionCallExpressionNode extends PrimaryExpressionNode{
 
     public ExpressionNode getArgument(int idx) {
         return arguments.get(idx);
+    }
+
+    public List<ExpressionNode> getArguments() {
+        return arguments;
     }
 
     public String getFunctionName() {
@@ -43,6 +50,13 @@ public class FunctionCallExpressionNode extends PrimaryExpressionNode{
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitFunctionCallExpressionNode(this);
+    }
+
+
+    @Override
+    public BSType accept(BSExpressionTypeBuilder builder, Scope scope) {
+        return builder.getTypeForFunctionCallExpressionNode(this, scope);
     }
 }

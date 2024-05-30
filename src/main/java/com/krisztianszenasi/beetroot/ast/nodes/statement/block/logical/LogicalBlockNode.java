@@ -3,6 +3,7 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.block.logical;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.StatementNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.BlockNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
+import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
 
 import java.util.Objects;
 
@@ -44,5 +45,11 @@ abstract public class LogicalBlockNode extends StatementNode {
     @Override
     public int hashCode() {
         return Objects.hash(expression, trueBlock, elseBlock);
+    }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
+        return visitor.visitLogicalBlockNode(this);
     }
 }

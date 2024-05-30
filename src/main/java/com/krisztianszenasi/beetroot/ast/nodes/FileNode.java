@@ -31,6 +31,7 @@ public class FileNode extends Node  {
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitFileNode(this);
     }
 }

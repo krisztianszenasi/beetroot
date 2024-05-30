@@ -37,6 +37,7 @@ public class BlockNode extends StatementNode implements StatementsHolder {
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitBlockNode(this);
     }
 }

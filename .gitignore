@@ -40,3 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# generated files (transpiled)
+*bs.py
+*.bs

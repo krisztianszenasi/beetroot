@@ -30,4 +30,10 @@ abstract public class DeclarationBlockNode extends StatementNode {
     public int hashCode() {
         return Objects.hash(block);
     }
+
+    @Override
+    public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
+        return visitor.visitDeclarationBlockNode(this);
+    }
 }

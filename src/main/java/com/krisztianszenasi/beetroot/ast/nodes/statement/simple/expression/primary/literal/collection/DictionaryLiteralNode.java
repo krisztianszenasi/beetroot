@@ -2,13 +2,13 @@ package com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prim
 
 
 import com.krisztianszenasi.beetroot.ast.visitor.AstVisitor;
+import com.krisztianszenasi.beetroot.semantic_analysis.Scope;
+import com.krisztianszenasi.beetroot.semantic_analysis.builders.expression_type.BSExpressionTypeBuilder;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class DictionaryLiteralNode extends CollectionLiteralNode {
-    List<DictElementNode> elements = new ArrayList<>();
 
     public void addElement(DictElementNode element) {
         elements.add(element);
@@ -29,6 +29,12 @@ public class DictionaryLiteralNode extends CollectionLiteralNode {
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
+        super.accept(visitor);
         return visitor.visitDictionaryLiteralNode(this);
+    }
+
+    @Override
+    public BSType accept(BSExpressionTypeBuilder builder, Scope scope) {
+        return builder.getTypeForDictionaryLiteralNode(this, scope);
     }
 }
