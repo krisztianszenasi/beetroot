@@ -43,3 +43,4 @@ bin/
 
 # generated files (transpiled)
 *bs.py
+*.bs
