@@ -303,7 +303,7 @@ public class PythonCodeGenerator extends CodeGenerator {
 
     @Override
     public String visitFileNode(FileNode node) {
-        return visit(node.getBlock());
+        return super.visitFileNode(node) + visit(node.getBlock());
     }
 
     @Override
@@ -339,5 +339,15 @@ public class PythonCodeGenerator extends CodeGenerator {
     @Override
     public String visitParameterNode(ParameterNode node) {
         return null;
+    }
+
+    @Override
+    public String buildFilename(String filename) {
+        return filename + ".py";
+    }
+
+    @Override
+    public String getCommentChars() {
+        return "#";
     }
 }

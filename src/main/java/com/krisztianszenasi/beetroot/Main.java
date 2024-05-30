@@ -22,7 +22,7 @@ public class Main {
             semanticAnalyser.printErrors();
         } else {
             PythonCodeGenerator generator = new PythonCodeGenerator();
-            generator.write(treeRepresentation, "result.py");
+            generator.write(treeRepresentation, args[0]);
         }
     }
 }
