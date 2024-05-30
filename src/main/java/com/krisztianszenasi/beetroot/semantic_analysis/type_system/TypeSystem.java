@@ -13,13 +13,16 @@ public class TypeSystem {
     protected final HashMap<String, BSNamedType> types;
     protected final HashSet<BSUnaryOperator> unaryOperators;
     protected final HashSet<BSBinaryOperator> binaryOperators;
+    protected final BSMultiParentType noneType;
     protected final BSMultiParentType errorType;
 
     public TypeSystem() {
         types = new HashMap<>();
         unaryOperators = new HashSet<>();
         binaryOperators = new HashSet<>();
+        this.noneType = new BSMultiParentType(TypeName.NONE);
         this.errorType = new BSMultiParentType(TypeName.ERROR);
+        errorType.addParent(noneType);
     }
 
     public boolean add(BSNamedType type) {
@@ -27,7 +30,7 @@ public class TypeSystem {
             return false;
         }
         types.put(type.getName(), type);
-        errorType.addParent(type);
+        noneType.addParent(type);
         return true;
     }
 
@@ -40,7 +43,7 @@ public class TypeSystem {
 
     public void register(BSType type) {
         if(type != null) {
-            errorType.addParent(type);
+            noneType.addParent(type);
             add(new BSBinaryOperator(type, OperatorName.PLUS, type, type));
             add(new BSBinaryOperator(type, OperatorName.MULTIPLY, getType(TypeName.INT), type));
             add(new BSBinaryOperator(type, OperatorName.MULTIPLY, type, getType(TypeName.INT)));
@@ -106,4 +109,5 @@ public class TypeSystem {
     public BSType getErrorType() {
         return errorType;
     }
+    public BSType getNoneType() { return noneType; }
 }

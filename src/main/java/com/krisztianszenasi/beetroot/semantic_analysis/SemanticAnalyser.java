@@ -28,6 +28,8 @@ import com.krisztianszenasi.beetroot.semantic_analysis.symbol.VariableSymbol;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
 import com.krisztianszenasi.beetroot.semantic_analysis.type_system.TypeSystem;
 
+import java.util.Objects;
+
 public class SemanticAnalyser extends AstVisitorDefaultVoid {
 
     private Scope current;
@@ -96,6 +98,7 @@ public class SemanticAnalyser extends AstVisitorDefaultVoid {
     @Override
     public Void visitReturnStatement(ReturnStatement node) {
         if(insideFunction()) {
+            currentFuncBuilder.setFoundReturnStatement();
             FunctionValidator.validateReturnType(
                     expressionTypeBuilder.getTypeFor(node.getExpressionNode(), current),
                     currentFuncBuilder,
@@ -141,11 +144,15 @@ public class SemanticAnalyser extends AstVisitorDefaultVoid {
         startFunctionBuilding(
                 new FunctionSymbol(
                         node.getName(),
-                        declarationTypeBuilder.getTypeFor(node.getReturnType())
+                        Objects.requireNonNullElse(
+                                declarationTypeBuilder.getTypeFor(node.getReturnType()),
+                                typeSystem.getNoneType()
+                        )
                 )
         );
         visit(node.getParameters());
         visit(node.getBlock());
+        currentFuncBuilder.checkForMissingReturn(node, errorHandler);
         stopFunctionBuilding();
         return null;
     }
@@ -190,7 +197,7 @@ public class SemanticAnalyser extends AstVisitorDefaultVoid {
     @Override
     public Void visitIfStatementNode(IfStatementNode node) {
         expressionTypeBuilder.getTypeFor(node.getExpression(), current);
-       handleLogicalBlock(node);
+        handleLogicalBlock(node);
         return null;
     }
 
