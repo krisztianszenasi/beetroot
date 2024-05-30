@@ -71,9 +71,7 @@ public class PythonCodeGenerator extends CodeGenerator {
                 visit(node.getExpression()),
                 visit(node.getTrueBlock())
         ));
-        if(node.getElseBlock() != null) {
-            code.append(String.format("else:\n%s", visit(node.getElseBlock())));
-        }
+        handleElseBlock(node.getElseBlock(), code);
         return code.toString();
     }
 
@@ -85,9 +83,7 @@ public class PythonCodeGenerator extends CodeGenerator {
                 visit(node.getExpression()),
                 visit(node.getTrueBlock())
         ));
-        if(node.getElseBlock() != null) {
-            code.append(String.format("else:\n%s", visit(node.getElseBlock())));
-        }
+        handleElseBlock(node.getElseBlock(), code);
         return code.toString();
     }
 
@@ -104,9 +100,7 @@ public class PythonCodeGenerator extends CodeGenerator {
                 visit(node.getExpression()),
                 visit(node.getTrueBlock())
         ));
-        if(node.getElseBlock() != null) {
-            code.append(String.format("else:\n%s", visit(node.getElseBlock())));
-        }
+        handleElseBlock(node.getElseBlock(), code);
         return code.toString();
     }
 
@@ -294,6 +288,13 @@ public class PythonCodeGenerator extends CodeGenerator {
             );
         }
         return node.getVariableName();
+    }
+
+    private void handleElseBlock(BlockNode elseBlock, StringBuilder builder) {
+        if(elseBlock != null) {
+            String tabs = String.join("", java.util.Collections.nCopies(tabCount, "\t"));
+            builder.append(String.format("%selse:\n%s", tabs, visit(elseBlock)));
+        }
     }
 
     @Override
