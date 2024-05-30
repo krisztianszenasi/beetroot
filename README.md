@@ -2,7 +2,7 @@
 
 ## Introduction
 
-`Beetroot` is small static typed **DSL** (domain specific language) written in **Java** which has a similar syntax to **Python**. Currently it can be transpiled to **Python**.
+`Beetroot` is small **statically** typed **DSL** (domain specific language) written in **Java** which has a similar syntax to **Python**. Currently it can be transpiled to **Python**.
 
 ## Usage
 
@@ -71,6 +71,11 @@ var myDictOfLists: dict[str, list[int]] = {"even": [1,2,3], "odd": [4,5,6]}
 
 ### Binary operators
 
+`Beetroot` supports a given set of **binary operators**. During the `semantic
+analysis` the compiler searches between these operators. They determine the
+`type` of the resulting value. If a compatible operator cannot be find for an
+expression a `TypeError` is raised.
+
 > **Format**: `<operator kind>`(`<operand1 type>`, `<operand1 type>`) -> `result type`
 
 ## `int`:
@@ -123,10 +128,10 @@ var myDictOfLists: dict[str, list[int]] = {"even": [1,2,3], "odd": [4,5,6]}
 
 ### Function definitions
 
-Functions can be defined via the `fun` keyword followed by the functions name.
-Arguments must have type declarations. The return value is optional. The return
-statement will be checked accordingly. It has to be closed with the `end`
-keyword.
+Functions can be defined via the `fun` keyword followed by the name of the
+function. Arguments must have type declarations. The return value is optional,
+the return statement will be checked accordingly. The declaration has to be
+closed with the `end` keyword.
 
 ```
 fun foo(bar: int, baz: dec) -> int:
@@ -136,10 +141,10 @@ end
 
 ### For statements
 
-For statements can be crated with the `for` keyword. The iterating variable can
-have explicit type declaration however this is only optional. Also the block
-itself can have an optional `else` block which will be run after the last
-iteration.
+For statements can be created with the `for` keyword. The iterating variable
+can have explicit type declaration however this is only optional. Also the
+block itself can have an optional `else` block which will be run right after
+the last iteration.
 
 ```
 for x: int in 1..2:
