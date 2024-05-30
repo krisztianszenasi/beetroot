@@ -11,4 +11,5 @@ public class TypeName {
     public static String DICT = "dict";
     public static String ERROR = "error";
     public static String NONE = "none";
+    public static String VOID = "void";
 }

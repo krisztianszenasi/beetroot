@@ -184,7 +184,10 @@ public class AstBuilder extends BeetrootBaseVisitor<Node> {
 
     @Override
     public UnaryExpressionNode visitUnaryExpression(BeetrootParser.UnaryExpressionContext ctx) {
-        return new UnaryExpressionNode((ExpressionNode) visit(ctx.expression()));
+        return new UnaryExpressionNode(
+                getFullSource(ctx.unaryOperator()),
+                (ExpressionNode) visit(ctx.expression())
+        );
     }
 
     @Override

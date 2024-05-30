@@ -16,5 +16,6 @@ public class OperatorName {
     public static String REMINDER = "%";
     public static String AND = "and";
     public static String OR = "or";
+    public static String NOT = "not";
     public static String RANGE = "range";
 }

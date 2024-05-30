@@ -5,6 +5,7 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.Binar
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.ExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.FunctionCallExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.IndexedExpressionNode;
+import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.UnaryExpressionNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal.BoolLiteralNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal.NoneLiteralNode;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal.StringLiteralNode;
@@ -146,6 +147,21 @@ public class BSExpressionTypeBuilder {
                     node.getOperator(),
                     leftType.toString(),
                     rightType.toString(),
+                    node.getLine(),
+                    node.getColumn()
+            ));
+            return typeSystem.getErrorType();
+        }
+        return operatorFound.getResultType();
+    }
+
+    public BSType getTypeForUnaryExpressionNode(UnaryExpressionNode node, Scope scope) {
+        BSType expressionType = getTypeFor(node.getExpression(), scope);
+        BSOperator operatorFound = typeSystem.getUnaryFor(node.getOperator(), expressionType);
+        if(operatorFound == null) {
+            errorHandler.add(TypeError.buildUnaryOperatorDoesNotExistError(
+                    node.getOperator(),
+                    expressionType.toString(),
                     node.getLine(),
                     node.getColumn()
             ));

@@ -277,6 +277,13 @@ public class BeetrootBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitUnaryOperator(BeetrootParser.UnaryOperatorContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitStringLiteral(BeetrootParser.StringLiteralContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

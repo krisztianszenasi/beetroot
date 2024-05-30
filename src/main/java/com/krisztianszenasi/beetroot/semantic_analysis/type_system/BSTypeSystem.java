@@ -1,6 +1,7 @@
 package com.krisztianszenasi.beetroot.semantic_analysis.type_system;
 
 import com.krisztianszenasi.beetroot.semantic_analysis.operator.BSBinaryOperator;
+import com.krisztianszenasi.beetroot.semantic_analysis.operator.BSUnaryOperator;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSCanBeIndexedType;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSNamedType;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.names.OperatorName;
@@ -8,6 +9,7 @@ import com.krisztianszenasi.beetroot.semantic_analysis.type.names.TypeName;
 
 public class BSTypeSystem extends TypeSystem{
 
+    private BSNamedType VOID;
     private BSNamedType ANY;
     private BSNamedType NUM;
     private BSNamedType DEC;
@@ -22,9 +24,11 @@ public class BSTypeSystem extends TypeSystem{
         super();
         initializeTypes();
         initializeBinaryOperators();
+        initializeUnaryOperators();
     }
 
     private void initializeTypes() {
+        VOID = new BSNamedType(TypeName.VOID, null);
         ANY = new BSNamedType(TypeName.ANY, null);
         // simple types
         NUM = new BSNamedType(TypeName.NUM, ANY);
@@ -36,6 +40,7 @@ public class BSTypeSystem extends TypeSystem{
         LIST = new BSCanBeIndexedType(TypeName.LIST, ANY, INT, ANY);
         DICT = new BSCanBeIndexedType(TypeName.DICT, ANY, ANY, ANY);
 
+        add(VOID);
         add(ANY);
         add(DEC);
         add(INT);
@@ -82,5 +87,14 @@ public class BSTypeSystem extends TypeSystem{
         add(new BSBinaryOperator(BOOL, OperatorName.AND, ANY, ANY));
         add(new BSBinaryOperator(BOOL, OperatorName.OR, ANY, ANY));
         add(new BSBinaryOperator(BOOL, OperatorName.IN, ANY, ANY));
+    }
+
+    private void initializeUnaryOperators() {
+        // logical
+        add(new BSUnaryOperator(BOOL, OperatorName.NOT, ANY));
+
+        // minus for numbers
+        add(new BSUnaryOperator(NUM, OperatorName.MINUS, NUM));
+        add(new BSUnaryOperator(NUM, OperatorName.PLUS, NUM));
     }
 }

@@ -1,5 +1,4 @@
 // Generated from /Users/krisztianszenasi/git/bme/msc/semester1/Beetroot3/src/main/java/com/krisztianszenasi/beetroot/Beetroot.g4 by ANTLR 4.13.1
-package com.krisztianszenasi.beetroot.gen;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -152,11 +151,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFile(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFile(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FileContext file() throws RecognitionException {
@@ -207,11 +201,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitBlock(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitBlock(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -304,11 +293,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -396,11 +380,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitSimpleStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitSimpleStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final SimpleStatementContext simpleStatement() throws RecognitionException {
@@ -484,11 +463,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitCompoundStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitCompoundStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CompoundStatementContext compoundStatement() throws RecognitionException {
@@ -559,11 +533,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitNewline(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitNewline(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final NewlineContext newline() throws RecognitionException {
@@ -621,11 +590,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFlowControl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFlowControl(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -685,11 +649,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitVariableDeclaration(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitVariableDeclaration(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -762,11 +721,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitAssignmentStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitAssignmentStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AssignmentStatementContext assignmentStatement() throws RecognitionException {
@@ -820,11 +774,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitPrimaryExpression(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitPrimaryExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class MulDivExpressionContext extends ExpressionContext {
@@ -845,11 +794,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitMulDivExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitMulDivExpression(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -872,11 +816,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitAddSubExpression(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitAddSubExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CompairExpressionContext extends ExpressionContext {
@@ -897,11 +836,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitCompairExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitCompairExpression(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -925,11 +859,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitRangeExpression(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitRangeExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class LogicalExpressionContext extends ExpressionContext {
@@ -950,11 +879,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitLogicalExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitLogicalExpression(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1093,11 +1017,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitReturnStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitReturnStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ReturnStatementContext returnStatement() throws RecognitionException {
@@ -1138,11 +1057,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitMutability(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitMutability(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1191,11 +1105,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitVariableName(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitVariableName(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final VariableNameContext variableName() throws RecognitionException {
@@ -1236,11 +1145,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitDeclarationType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitDeclarationType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1289,11 +1193,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1364,11 +1263,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitAssignment(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitAssignment(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1471,11 +1365,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitPrimary(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitPrimary(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PrimaryContext primary() throws RecognitionException {
@@ -1577,11 +1466,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitAddSubOp(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitAddSubOp(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AddSubOpContext addSubOp() throws RecognitionException {
@@ -1630,11 +1514,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitMulDivOp(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitMulDivOp(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1689,11 +1568,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitCompairOp(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitCompairOp(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CompairOpContext compairOp() throws RecognitionException {
@@ -1741,11 +1615,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitLogicalOp(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitLogicalOp(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1799,11 +1668,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitRangeType(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitRangeType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final RangeTypeContext rangeType() throws RecognitionException {
@@ -1852,11 +1716,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitCollectionType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitCollectionType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1916,11 +1775,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitPrimitiveType(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitPrimitiveType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PrimitiveTypeContext primitiveType() throws RecognitionException {
@@ -1972,11 +1826,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitListType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitListType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2031,11 +1880,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitDictType(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitDictType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DictTypeContext dictType() throws RecognitionException {
@@ -2086,11 +1930,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitKeyType(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitKeyType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final KeyTypeContext keyType() throws RecognitionException {
@@ -2130,11 +1969,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitValueType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitValueType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2177,11 +2011,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitParenthesizedExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitParenthesizedExpression(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2229,11 +2058,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitUnaryExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitUnaryExpression(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2288,11 +2112,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFunctionCall(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFunctionCall(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2380,11 +2199,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitLiteralExpression(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitLiteralExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final LiteralExpressionContext literalExpression() throws RecognitionException {
@@ -2471,11 +2285,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitUnaryOperator(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitUnaryOperator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final UnaryOperatorContext unaryOperator() throws RecognitionException {
@@ -2523,11 +2332,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitStringLiteral(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitStringLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StringLiteralContext stringLiteral() throws RecognitionException {
@@ -2566,11 +2370,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitNumberLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitNumberLiteral(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2623,11 +2422,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitCollectionLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitCollectionLiteral(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2682,11 +2476,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitNoneLiteral(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitNoneLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final NoneLiteralContext noneLiteral() throws RecognitionException {
@@ -2727,11 +2516,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitVariableReference(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitVariableReference(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final VariableReferenceContext variableReference() throws RecognitionException {
@@ -2770,11 +2554,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitBoolLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitBoolLiteral(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2833,11 +2612,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitListLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitListLiteral(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2917,11 +2691,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitDictLiteral(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitDictLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DictLiteralContext dictLiteral() throws RecognitionException {
@@ -2995,11 +2764,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitDictElement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitDictElement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DictElementContext dictElement() throws RecognitionException {
@@ -3044,11 +2808,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitKey(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitKey(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final KeyContext key() throws RecognitionException {
@@ -3088,11 +2847,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitValue(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3148,11 +2902,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitIfStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitIfStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3259,11 +3008,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitWhileStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitWhileStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final WhileStatementContext whileStatement() throws RecognitionException {
@@ -3329,11 +3073,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitForStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitForStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3404,11 +3143,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFunctionDefinition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFunctionDefinition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionDefinitionContext functionDefinition() throws RecognitionException {
@@ -3472,11 +3206,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFunctionName(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFunctionName(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionNameContext functionName() throws RecognitionException {
@@ -3523,11 +3252,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFunctionParameters(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFunctionParameters(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3598,11 +3322,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFunctionParameter(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFunctionParameter(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionParameterContext functionParameter() throws RecognitionException {
@@ -3647,11 +3366,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitFunctionReturnType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitFunctionReturnType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3706,11 +3420,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitForHeader(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitForHeader(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3778,11 +3487,6 @@ public class BeetrootParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitElifBlock(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitElifBlock(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ElifBlockContext elifBlock() throws RecognitionException {
@@ -3830,11 +3534,6 @@ public class BeetrootParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BeetrootListener ) ((BeetrootListener)listener).exitElseBlock(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BeetrootVisitor ) return ((BeetrootVisitor<? extends T>)visitor).visitElseBlock(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 

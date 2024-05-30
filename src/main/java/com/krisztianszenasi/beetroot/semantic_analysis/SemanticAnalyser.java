@@ -21,6 +21,7 @@ import com.krisztianszenasi.beetroot.semantic_analysis.builders.FunctionBuilder;
 import com.krisztianszenasi.beetroot.semantic_analysis.builders.declaration_type.BSDeclarationTypeBuilder;
 import com.krisztianszenasi.beetroot.semantic_analysis.builders.expression_type.BSExpressionTypeBuilder;
 import com.krisztianszenasi.beetroot.semantic_analysis.error.*;
+import com.krisztianszenasi.beetroot.semantic_analysis.type.names.TypeName;
 import com.krisztianszenasi.beetroot.semantic_analysis.validators.*;
 import com.krisztianszenasi.beetroot.semantic_analysis.symbol.BuiltInFunctions;
 import com.krisztianszenasi.beetroot.semantic_analysis.symbol.FunctionSymbol;
@@ -146,7 +147,7 @@ public class SemanticAnalyser extends AstVisitorDefaultVoid {
                         node.getName(),
                         Objects.requireNonNullElse(
                                 declarationTypeBuilder.getTypeFor(node.getReturnType()),
-                                typeSystem.getNoneType()
+                                typeSystem.getType(TypeName.VOID)
                         )
                 )
         );

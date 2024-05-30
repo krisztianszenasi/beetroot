@@ -14,7 +14,7 @@ public class BSUnaryOperator extends BSOperator {
     }
 
     public boolean isCompatibleWith(String kind, BSType typeToMatch) {
-        return isCompatibleWith(kind) && expressionType.isCompatibleWith(typeToMatch);
+        return isCompatibleWith(kind) && typeToMatch.isCompatibleWith(expressionType);
     }
 
     @Override

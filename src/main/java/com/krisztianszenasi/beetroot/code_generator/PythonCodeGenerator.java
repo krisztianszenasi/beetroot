@@ -224,7 +224,7 @@ public class PythonCodeGenerator extends CodeGenerator {
 
     @Override
     public String visitUnaryExpressionNode(UnaryExpressionNode node) {
-        return null;
+        return String.format("%s %s", node.getOperator(), visit(node.getExpression()));
     }
 
     @Override

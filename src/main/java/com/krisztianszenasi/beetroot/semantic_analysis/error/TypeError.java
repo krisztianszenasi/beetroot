@@ -61,6 +61,20 @@ public class TypeError extends BaseError {
         return new TypeError(line, column, msg);
     }
 
+    static public TypeError buildUnaryOperatorDoesNotExistError(
+            String operator,
+            String expressionType,
+            int line,
+            int column
+    ) {
+        String msg = String.format(
+                "Unary operator '%s' does not exist for type '%s'",
+                operator,
+                expressionType
+        );
+        return new TypeError(line, column, msg);
+    }
+
     static public TypeError buildIndexedWithWrongTypeError(
             String collectionType,
             String expectedIndexType,
