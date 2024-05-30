@@ -132,8 +132,8 @@ boolLiteral: TRUE_LIT | FALSE_LIT;
 // ---------------------------------------------------------------------------------------------------------------------
 // Collection literals
 // ---------------------------------------------------------------------------------------------------------------------
-listLiteral: LBRACKET (expression (COMMA expression)*)? RBRACKET;
-dictLiteral: LCURLY (dictElement (COMMA dictElement)*)? RCURLY;
+listLiteral: LBRACKET NEWLINE* (expression (NEWLINE* COMMA NEWLINE* expression)*)? NEWLINE* RBRACKET;
+dictLiteral: LCURLY NEWLINE* (dictElement (NEWLINE* COMMA NEWLINE* dictElement)*)? NEWLINE* RCURLY;
 
 // dict literal helpers
 dictElement: key COLON value;
