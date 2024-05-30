@@ -238,7 +238,7 @@ public class SemanticAnalyser extends AstVisitorDefaultVoid {
     }
 
     private boolean outsideLogicalBlock() {
-        return logicalBlockDepths < 0;
+        return logicalBlockDepths == 0;
     }
 
     public void printErrors() {
