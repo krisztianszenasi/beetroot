@@ -6,6 +6,7 @@ import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.prima
 import com.krisztianszenasi.beetroot.ast.nodes.statement.simple.expression.primary.literal.VariableReferenceLiteralNode;
 import com.krisztianszenasi.beetroot.semantic_analysis.Scope;
 import com.krisztianszenasi.beetroot.semantic_analysis.error.ErrorHandler;
+import com.krisztianszenasi.beetroot.semantic_analysis.error.NameError;
 import com.krisztianszenasi.beetroot.semantic_analysis.error.TypeError;
 import com.krisztianszenasi.beetroot.semantic_analysis.symbol.VariableSymbol;
 
@@ -33,7 +34,7 @@ public class AssignmentValidator {
         }
         VariableSymbol symbol = scope.findVariable(varRef.getName());
         if(symbol != null && !symbol.canBeChanged()) {
-            errorHandler.add(new TypeError(
+            errorHandler.add(new NameError(
                     node.getLine(),
                     node.getColumn(),
                     String.format(

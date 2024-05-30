@@ -3,6 +3,8 @@ package com.krisztianszenasi.beetroot.semantic_analysis.builders;
 import com.krisztianszenasi.beetroot.ast.nodes.Node;
 import com.krisztianszenasi.beetroot.ast.nodes.statement.block.declaration.FunctionDefinitionNode;
 import com.krisztianszenasi.beetroot.semantic_analysis.error.ErrorHandler;
+import com.krisztianszenasi.beetroot.semantic_analysis.error.NameError;
+import com.krisztianszenasi.beetroot.semantic_analysis.error.SyntaxError;
 import com.krisztianszenasi.beetroot.semantic_analysis.error.TypeError;
 import com.krisztianszenasi.beetroot.semantic_analysis.symbol.FunctionSymbol;
 import com.krisztianszenasi.beetroot.semantic_analysis.type.BSType;
@@ -43,7 +45,7 @@ public class FunctionBuilder {
 
     public void checkForMissingReturn(FunctionDefinitionNode node, ErrorHandler errorHandler) {
         if(!foundReturnStatement && node.getReturnType() != null) {
-            errorHandler.add(new TypeError(
+            errorHandler.add(new SyntaxError(
                     node.getLine(),
                     node.getColumn(),
                     String.format("Function '%s' does not have a return statement", node.getName())
