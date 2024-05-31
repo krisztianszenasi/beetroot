@@ -6,7 +6,7 @@
 
 ## Usage
 
-Compile `.bs` files with the [beetroot.jar](https://github.com/krisztianszenasi/beetroot/releases/download/v0.0.1/beetroot.jar).
+Compile `.bs` files with the [beetroot.jar](https://github.com/krisztianszenasi/beetroot/releases/download/v0.0.2/beetroot.jar).
 
 ```
 java -jar beetroot.jar example.bs
